@@ -1,0 +1,26 @@
+.cartWidget{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+.sum{
+  padding-left: 5px;
+  padding-right: 15px;
+  background: white;
+  border-radius: 5px;
+  border: 1px groove goldenrod;
+  border-right: hidden;
+  position: relative;
+  &::after{
+    content: '$';
+    border-radius: 0 5px 5px 0;
+    background: rgb(0, 210, 0);
+    margin-left: 5px;
+    border: 1px solid darkgreen;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: -1px;
+    bottom: -1px;
+  }
+}

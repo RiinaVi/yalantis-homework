@@ -1,0 +1,17 @@
+.tableContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.table-bordered {
+  text-align: center;
+  width: 90%;
+}
+
+.table-sm td, .table-sm th {
+  padding: 10px;
+}
+
+.totalLabel {
+  text-align: end;
+}

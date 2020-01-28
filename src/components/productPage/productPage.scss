@@ -1,0 +1,45 @@
+.productInfoContainer {
+  background: #eff1f9;
+  padding-bottom: 10%;
+  padding-top: 10%;
+  margin-top: -10px;
+
+  display: flex;
+  justify-content: center;
+
+  p {
+    text-align: center;
+    font-size: 3em;
+  }
+
+  img {
+    width: fit-content;
+  }
+
+  div {
+
+    .price {
+      background-color: white;
+      border-radius: 5px;
+      border: 1px groove goldenrod;
+      width: -webkit-max-content;
+      padding: 5px 10px
+    }
+  }
+
+  button {
+    width: 50%;
+  }
+}
+
+.col {
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.row {
+  display: flex;
+}
