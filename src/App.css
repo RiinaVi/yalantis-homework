@@ -4,11 +4,3 @@
     flex-wrap: wrap;
 }
 
-.alert-success {
-    position: fixed;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 60%;
-    z-index: 1;
-}

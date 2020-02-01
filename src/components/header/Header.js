@@ -1,16 +1,20 @@
-import React from "react";
+import React, {useContext} from "react";
 import CartWidget from "../cart/cartWidget/CartWidget";
 import {Navbar, Nav} from "react-bootstrap";
-import {withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
+import {CartContext} from "../../providers/CartProvider";
 import './header.scss';
 
 function Header(props) {
+    const {cartSum} = useContext(CartContext);
+    const {pathname} = props.location;
+
     return (
         <Navbar bg="light" variant="light">
-            <Navbar.Brand href="/">Products</Navbar.Brand>
+            <Link className={'productsLink'} to="/">Products</Link>
             <Nav className="ml-auto">
-                {props.location.pathname !== '/cart' &&
-                <CartWidget sum={props.cartSum}/>
+                {pathname !== '/cart' &&
+                <CartWidget sum={cartSum}/>
                 }
             </Nav>
         </Navbar>

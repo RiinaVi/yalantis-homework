@@ -1,13 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import CartPageItem from "./CartPageItem";
 import {Table} from 'react-bootstrap';
 import './cartPage.scss';
+import {CartContext} from "../../../providers/CartProvider";
 
 export default function CartPage() {
-    let productsList = localStorage.getItem('selectedItems') ?
-        JSON.parse(localStorage.getItem('selectedItems')).items : null,
-        productsSum = localStorage.getItem('selectedItems') ?
-            JSON.parse(localStorage.getItem('selectedItems')).sum : 0;
+    const {cartSum, productsInCart} = useContext(CartContext);
 
     return (
         <div className={'tableContainer'}>
@@ -23,20 +21,14 @@ export default function CartPage() {
                 </thead>
                 <tbody>
                 {
-                    productsList &&
-                    productsList.map((item) => {
-                        return (
-                            <CartPageItem item={item}
-                                          key={item.id}
-                                          productsList={productsList}
-                                          productsSum={productsSum}/>
-                        );
+                    Object.values(productsInCart).map(item => {
+                        return <CartPageItem item={item} key={item.id}/>
                     })
                 }
                 <tr>
                     <td className={'totalLabel'} colSpan={'4'}>Total:</td>
                     <td>
-                        {productsSum}$
+                        {cartSum}$
                     </td>
                 </tr>
                 </tbody>

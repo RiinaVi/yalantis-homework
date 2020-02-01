@@ -1,25 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {Nav} from "react-bootstrap";
+import React, {useContext} from "react";
 import './cartWidget.scss';
 import {Icon} from 'antd';
+import {Link} from "react-router-dom";
+import {CartContext} from "../../../providers/CartProvider";
 
 export default function CartWidget() {
-
-    const [sum, setSum] = useState(0);
-    let currentSum = localStorage.getItem('selectedItems') ?
-        JSON.parse(localStorage.getItem('selectedItems')).sum : 0;
-
-    useEffect(() => {
-        setSum(currentSum);
-    }, [currentSum]);
+    const {cartSum} = useContext(CartContext);
 
     return (
         <div className={'cartWidget'}>
-            <div className={'sum'}>{sum}</div>
-            <Nav.Link href="/cart">
+            <div className={'sum'}>
+                {cartSum}
+            </div>
+            <Link to="/cart">
                 Show cart
                 <Icon type="shopping-cart"/>
-            </Nav.Link>
+            </Link>
         </div>
     );
 }

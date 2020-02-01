@@ -1,6 +1,11 @@
 nav {
   background: #d7d0d7;
   margin-bottom: 10px;
+  .productsLink{
+  font-size: 25px;
+  color: inherit;
+}
+
 }
 
 .ml-auto, .mx-auto {
@@ -13,4 +18,13 @@ nav {
 
 .card-title {
   min-block-size: 2em;
+}
+
+.alert-success {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 60%;
+  z-index: 1;
 }

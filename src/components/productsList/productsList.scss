@@ -1,6 +1,8 @@
 .productsListContainer{
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-evenly;
   padding-bottom: 10px;
+  min-height: calc( 100vh - 53px);
 }

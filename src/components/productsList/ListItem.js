@@ -1,30 +1,35 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Button, Card} from "react-bootstrap";
-import img from "../../imageNoImageSmall.gif";
 import {Icon} from 'antd';
-import './productsList.scss';
+import img from "../../imageNoImageSmall.gif";
 import {formatDate} from '../customFunctions';
+import {CartContext} from "../../providers/CartProvider";
+import './productsList.scss';
+import {Link} from "react-router-dom";
 
-export default function ListItem(props) {
+export default function ListItem({product}) {
+    const {id, name, origin, price, updatedAt} = product;
+    const {addToCart} = useContext(CartContext);
+
     return (
         <Card style={{marginBottom: '10px'}} className={'productCard'}>
             <Card.Img variant="top" src={img}/>
             <Card.Body>
-                <Card.Link href={`/product/${props.product.id}`}>
-                    <Card.Title>{props.product.name}</Card.Title>
-                </Card.Link>
+                <Link to={`/product/${id}`}>
+                    <Card.Title>{name}</Card.Title>
+                </Link>
                 <Card.Text>
-                    {'Origin: ' + props.product.origin}<br/>{props.product.price + '$'}
+                    Origin: {origin}<br/>{price} $
                 </Card.Text>
-                <Button onClick={() => props.addToCart(props.product)} variant="outline-success">Add to
-                    cart <Icon type="shopping-cart"/>
+                <Button onClick={() => addToCart(product)} variant="outline-success">
+                    Add to cart
+                    <Icon type="shopping-cart"/>
                 </Button>
             </Card.Body>
             <Card.Footer>
                 <small className="text-muted">Last
-                    updated {formatDate(props.product.updatedAt)}</small>
+                    updated {formatDate(updatedAt)}</small>
             </Card.Footer>
         </Card>
-
     );
 }
