@@ -1,0 +1,4 @@
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const CHANGE_QUANTITY = 'CHANGE_QUANTITY';
+export const LIST_ADD_TO_CART = '[LIST]ADD_TO_CART';
+export const PAGE_ADD_TO_CART = '[PAGE]ADD_TO_CART';

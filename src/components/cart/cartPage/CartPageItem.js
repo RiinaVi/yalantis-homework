@@ -4,6 +4,8 @@ import {Image} from "react-bootstrap";
 import './cartPage.scss'
 import {Link} from "react-router-dom";
 
+import {connect} from "react-redux";
+
 export default function CartPageItem({item}) {
     const {id, name, price, quantity} = item;
 
@@ -17,3 +19,4 @@ export default function CartPageItem({item}) {
         </tr>
     );
 }
+

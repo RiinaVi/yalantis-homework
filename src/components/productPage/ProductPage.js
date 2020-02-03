@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from 'react-router-dom';
 import axios from "axios";
 import img from '../../imageNoImageSmall.gif';
@@ -6,13 +6,14 @@ import {Button, Image, Container, Col, Row, Spinner} from "react-bootstrap";
 import {Icon} from "antd";
 import './productPage.scss';
 import {formatDate} from '../customFunctions';
-import {CartContext} from "../../providers/CartProvider";
 
-export default function ProductPage() {
+import {connect} from "react-redux";
+import {pageAddToCart} from "../../store/actions/productsActions";
+
+function ProductPage(props) {
     let {someProductId} = useParams();
     const [data, setData] = useState(null);
     const [loadingStatus, setLoadingStatus] = useState(true);
-    const {addToCart} = useContext(CartContext);
 
     useEffect(() => {
         axios.get(`https://yalantis-react-school.herokuapp.com/api/v1/products/${someProductId}`)
@@ -36,7 +37,9 @@ export default function ProductPage() {
                         <div>Origin: {data.origin}</div>
                         <div>Created at: {formatDate(data.createdAt)}</div>
                         <div>Updated at: {formatDate(data.updatedAt)}</div>
-                        <Button onClick={() => addToCart(data)} variant="outline-success">
+                        <Button onClick={() =>
+                            props.pageAddToCart(data)
+                        } variant="outline-success">
                             Add to cart
                             <Icon type="shopping-cart"/>
                         </Button>
@@ -50,3 +53,15 @@ export default function ProductPage() {
         </div>
     );
 }
+
+const mapStateToProps = ({products}) => {
+    return {
+        itemsInCart: products.itemsInCart
+    }
+};
+
+const mapDispatchToProps = {
+    pageAddToCart
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);

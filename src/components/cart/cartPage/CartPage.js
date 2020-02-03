@@ -4,8 +4,14 @@ import {Table} from 'react-bootstrap';
 import './cartPage.scss';
 import {CartContext} from "../../../providers/CartProvider";
 
-export default function CartPage() {
-    const {cartSum, productsInCart} = useContext(CartContext);
+import {connect} from "react-redux";
+
+function CartPage(props) {
+    // const {cartSum, productsInCart} = useContext(CartContext);
+
+    let cartSum = Object.values(props.productsInCart).reduce((acc, item)=>{
+        return acc+=item.price;
+    },0);
 
     return (
         <div className={'tableContainer'}>
@@ -21,14 +27,16 @@ export default function CartPage() {
                 </thead>
                 <tbody>
                 {
-                    Object.values(productsInCart).map(item => {
+                    Object.values(props.productsInCart).map(item => {
                         return <CartPageItem item={item} key={item.id}/>
                     })
                 }
                 <tr>
                     <td className={'totalLabel'} colSpan={'4'}>Total:</td>
                     <td>
-                        {cartSum}$
+                        {
+                            cartSum
+                        }$
                     </td>
                 </tr>
                 </tbody>
@@ -36,3 +44,12 @@ export default function CartPage() {
         </div>
     );
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        productsInCart: state.products
+    }
+};
+
+export default connect(mapStateToProps)(CartPage);
