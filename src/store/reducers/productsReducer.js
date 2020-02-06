@@ -1,22 +1,34 @@
-import {LIST_ADD_TO_CART, PAGE_ADD_TO_CART} from "../constants/actionTypes";
+import {LOAD_PRODUCTS, UPDATE_FILTERS} from "../constants/actionTypes";
+
+export function loadProducts(products) {
+    return {
+        type: LOAD_PRODUCTS, products
+    }
+}
+
+export function setFilteredProducts(products) {
+    return {
+        type: UPDATE_FILTERS,
+        products
+    }
+}
 
 const initialState = {
-    productsInCart: {}
-    ,
-    // cartSum: 100
+    allProducts: [],
 };
 
-export default function productsReducer(state = initialState.productsInCart, {type, id, name, price, quantity}) {
-    switch (type) {
-        case LIST_ADD_TO_CART:
-            return{
+export default function productsReducer(state = initialState, action) {
+    switch (action.type) {
+        case LOAD_PRODUCTS:
+            return {
                 ...state,
-                [id]: {
-                    id, name, price, quantity
-                },
+                allProducts: [...action.products]
             };
-        case PAGE_ADD_TO_CART:
-            return {...state.productsInCart, [id]: {id, name, price, quantity}};
+        case UPDATE_FILTERS:
+            return {
+                ...state,
+                queryFilters: [...action.products]
+            };
         default:
             return state;
     }

@@ -1,16 +1,15 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Alert} from "react-bootstrap";
-import {CartContext} from "../../providers/CartProvider";
 import './header.scss';
 
-export default function AlertComponent() {
-    const {alertVisibility, setAlertVisibility} = useContext(CartContext);
+export default function AlertComponent({alert}) {
+    const {variant, text, visible} = alert;
     return(
         <Alert className={'alert'}
-               show={alertVisibility}
-               variant={'success'}
-               onClose={() =>setAlertVisibility(false)} dismissible>
-            Product was added to the cart!
+               show={visible}
+               variant={variant}
+               dismissible>
+            {text}
         </Alert>
     )
 }

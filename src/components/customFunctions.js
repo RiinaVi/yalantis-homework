@@ -7,7 +7,26 @@ export function formatDate(date) {
         + properDate.getFullYear();
 }
 
-export function alertTimer(time = 2000, stateSetter) {
-    stateSetter(true);
-    setTimeout(() => stateSetter(false), time);
+export function debounce(f, ms) {
+    let isCooldown = false;
+
+    return function() {
+        if (isCooldown) return;
+
+        f.apply(this, arguments);
+
+        isCooldown = true;
+
+        setTimeout(() => isCooldown = false, ms);
+    };
+
 }
+
+export  const toQueryString = (obj) => {
+    let str = [];
+    for (let p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return str.join("&");
+};

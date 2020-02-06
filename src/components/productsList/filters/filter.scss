@@ -1,0 +1,14 @@
+.accordion{
+  &:not(:last-of-type){
+    margin-bottom: 20px;
+  }
+}
+
+.arrow-up{
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  transform: rotate(45deg);
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}

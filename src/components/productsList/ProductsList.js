@@ -1,11 +1,12 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import ListItem from "./ListItem";
 import {Col, Container, Row, Spinner} from "react-bootstrap";
-import {ProductContext} from "../../providers/ProductProvider";
 import './productsList.scss';
+import {connect} from "react-redux";
+import {getProducts} from "../../store/selectors";
 
-export default function ProductsList() {
-    const {products, loadingProducts} = useContext(ProductContext);
+function ProductsList(props) {
+    const {loadingProducts, products} = props;
 
     return (
         <div className={'productsListContainer'}>
@@ -15,6 +16,11 @@ export default function ProductsList() {
             {
                 !loadingProducts && products &&
                 <Container>
+                    <Row>
+                        <Col md={12} className={'productsFound'}>
+                            {props.total} products found
+                        </Col>
+                    </Row>
                     <Row>
                         {products.map((product) => {
                             return (
@@ -29,3 +35,10 @@ export default function ProductsList() {
         </div>
     );
 }
+const mapStateToProps = state => {
+    return{
+        products: getProducts(state)
+    }
+};
+
+export default connect(mapStateToProps)(ProductsList);

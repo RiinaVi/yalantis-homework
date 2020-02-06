@@ -6,14 +6,26 @@ import {formatDate} from '../customFunctions';
 import './productsList.scss';
 import {Link} from "react-router-dom";
 
-import {connect} from "react-redux";
-import {listAddToCart} from "../../store/actions/productsActions";
+import {connect, useDispatch, useSelector} from "react-redux";
+import {listAddToCart, increaseQuantity} from "../../store/actions/cartActions";
+import {isProductInCart} from "../../store/selectors";
+import {hideAlert, showAlert} from "../../store/actions/alertActions";
 
-function ListItem(props) {
-    const product = props.product;
-    const {id, name, origin, price, updatedAt} = props.product;
+function ListItem({showAlert, hideAlert, product}) {
+    const inCart = useSelector(isProductInCart);
+    const dispatch = useDispatch();
 
+    const {id, name, origin, price, updatedAt} = product;
 
+    const clickHandler = (product) => {
+        if (inCart(product.id)) {
+            dispatch(increaseQuantity(product.id));
+        } else {
+            dispatch(listAddToCart(product));
+        }
+        showAlert();
+        setTimeout(hideAlert, 2000);
+    };
 
     return (
         <Card style={{marginBottom: '10px'}} className={'productCard'}>
@@ -26,7 +38,7 @@ function ListItem(props) {
                     Origin: {origin}<br/>{price} $
                 </Card.Text>
                 <Button onClick={() =>
-                    props.listAddToCart(product)
+                    clickHandler(product)
                 } variant="outline-success">
                     Add to cart
                     <Icon type="shopping-cart"/>
@@ -41,7 +53,7 @@ function ListItem(props) {
 }
 
 const mapDispatchToProps = {
-    listAddToCart
+    showAlert, hideAlert
 };
 
 export default connect(null, mapDispatchToProps)(ListItem);

@@ -1,55 +1,42 @@
-import React, {useContext} from "react";
+import React from "react";
+import {useSelector} from 'react-redux'
+import {getCartSum, getProductsInCart} from "../../../store/selectors";
 import CartPageItem from "./CartPageItem";
 import {Table} from 'react-bootstrap';
 import './cartPage.scss';
-import {CartContext} from "../../../providers/CartProvider";
 
-import {connect} from "react-redux";
-
-function CartPage(props) {
-    // const {cartSum, productsInCart} = useContext(CartContext);
-
-    let cartSum = Object.values(props.productsInCart).reduce((acc, item)=>{
-        return acc+=item.price;
-    },0);
+export default function CartPage() {
+    const cartSum = useSelector(getCartSum);
+    const productsInCart = useSelector(getProductsInCart);
 
     return (
         <div className={'tableContainer'}>
             <Table striped bordered hover size="sm">
                 <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Name</th>
+                    <th colSpan={3}>Product</th>
                     <th>Price</th>
-                    <th>Quantity</th>
+                    <th width={150}>Quantity</th>
                     <th>Total</th>
                 </tr>
                 </thead>
                 <tbody>
                 {
-                    Object.values(props.productsInCart).map(item => {
+                    Object.values(productsInCart).map(item => {
                         return <CartPageItem item={item} key={item.id}/>
                     })
                 }
+                </tbody>
+                <tfoot>
                 <tr>
-                    <td className={'totalLabel'} colSpan={'4'}>Total:</td>
+                    <td className={'totalLabel'} colSpan={5}>Cart subtotal:</td>
                     <td>
-                        {
-                            cartSum
-                        }$
+                        ${cartSum}
                     </td>
                 </tr>
-                </tbody>
+                </tfoot>
             </Table>
         </div>
     );
 }
 
-
-const mapStateToProps = (state) => {
-    return {
-        productsInCart: state.products
-    }
-};
-
-export default connect(mapStateToProps)(CartPage);

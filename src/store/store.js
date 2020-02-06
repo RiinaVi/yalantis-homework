@@ -1,6 +1,6 @@
-import {createStore, compose} from "redux";
+import {createStore, compose, applyMiddleware} from "redux";
 import rootReducer from './reducers/rootReducer';
-// import {save} from 'redux-localstorage-simple';
+import {save} from 'redux-localstorage-simple';
 
 const composeEnhancers =
     process.env.NODE_ENV !== 'production' &&
@@ -13,11 +13,9 @@ const configureStore = preloadedState => (
         rootReducer,
         preloadedState,
         composeEnhancers(
-            //делает промежуточные операции с данными в момент
-            //их обновления в редакс сторе
-            // applyMiddleware(save(
-            //     {namespace: 'todo-app'}
-            // ))
+            applyMiddleware(save(
+                {namespace: 'products-app'}
+            ))
         ),
     )
 );
