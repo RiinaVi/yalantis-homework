@@ -1,10 +1,10 @@
 import React from "react";
-import './cartWidget.scss';
 import {Link} from "react-router-dom";
 import {getCartQuantity, getCartSum} from "../../../store/selectors";
 import {Tooltip} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import './cartWidget.scss';
 
 export default function CartWidget() {
     const quantity = useSelector(getCartQuantity);

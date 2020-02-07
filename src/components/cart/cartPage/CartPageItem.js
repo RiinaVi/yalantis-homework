@@ -11,11 +11,10 @@ import {
 } from "../../../store/actions/cartActions";
 
 import {useDispatch} from "react-redux";
-import {hideAlert, showDeleteAlert} from "../../../store/actions/alertActions";
+import {hideAlert, showAlert} from "../../../store/actions/alertActions";
 import FormControl from "react-bootstrap/FormControl";
-import {connect} from "react-redux";
 
-function CartPageItem({item, hideAlert, showDeleteAlert}) {
+export default function CartPageItem({item}) {
     const {id, name, price, quantity} = item;
 
     const dispatch = useDispatch();
@@ -34,8 +33,8 @@ function CartPageItem({item, hideAlert, showDeleteAlert}) {
 
     const deleteClickHandler = () => {
         dispatch(deleteProduct(id));
-        showDeleteAlert();
-        setTimeout(hideAlert, 2000);
+        dispatch(showAlert('Item was removed from the cart!', 'danger'));
+        setTimeout(() => dispatch(hideAlert()), 2000);
     };
 
     return (
@@ -63,9 +62,5 @@ function CartPageItem({item, hideAlert, showDeleteAlert}) {
     );
 }
 
-const mapDispatchToProps = {
-    hideAlert, showDeleteAlert
-};
 
-export default connect(null, mapDispatchToProps)(CartPageItem);
 

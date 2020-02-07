@@ -1,35 +1,32 @@
-import React, {useRef} from "react";
+import React from "react";
 import Accordion from "react-bootstrap/Accordion";
-import {Button, Card} from "react-bootstrap";
-import './filter.scss'
+import {Card} from "react-bootstrap";
 import {perPageValues} from "../../../store/constants/filtersParameters";
+import './filter.scss'
+
 
 export default function PerPageSelect({applyProductsPerPage}) {
-    const inputs = useRef();
-    const onChangeHandler = () => {
-        let checkedInput = inputs.current.querySelector('input:checked');
-        applyProductsPerPage(checkedInput.value);
+
+    const onChangeHandler = (e) => {
+        applyProductsPerPage(e.target.value);
     };
 
     return (
         <Accordion defaultActiveKey="0">
             <Card>
-                <Card.Header>
-                    Show:
-                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        <div className={'arrow-up'} />
-                    </Accordion.Toggle>
-                </Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+                    Show: <div className={'arrow-up'}/>
+                </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                        <div ref={inputs}>
-                            {perPageValues.map((perPage, index)=>(
+                        <div>
+                            {perPageValues.map((perPage, index) => (
                                 <label key={index}>
                                     <input onClick={onChangeHandler}
                                            type="radio"
                                            name={'perPage'}
                                            value={perPage}/>
-                                    {perPage+' '}
+                                    {perPage + ' '}
                                     items
                                 </label>
                             ))}

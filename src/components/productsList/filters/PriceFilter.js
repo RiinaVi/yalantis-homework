@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Accordion, Button, Card} from "react-bootstrap";
+import {Accordion, Card} from "react-bootstrap";
 import {Slider} from "antd";
 import 'antd/dist/antd.css';
 import InputGroup from "react-bootstrap/InputGroup";
@@ -39,14 +39,10 @@ export default function PriceFilter({applyPriceFilterHandler}) {
     return (
         <Accordion defaultActiveKey="0">
             <Card>
-                <Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
                     Price, $
-                    <Accordion.Toggle as={Button} onClick={() => {
-                        console.log('click')
-                    }} variant="link" eventKey="0">
-                        <div className={'arrow-up arrow'}/>
-                    </Accordion.Toggle>
-                </Card.Header>
+                    <div className={'arrow-up arrow'}/>
+                </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
                         <InputGroup className="mb-3">

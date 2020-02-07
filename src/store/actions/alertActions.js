@@ -1,18 +1,16 @@
-import {HIDE_ALERT, SHOW_ALERT, SHOW_DELETE_ALERT} from "../constants/actionTypes";
+import {HIDE_ALERT, SHOW_ALERT} from "../constants/actionTypes";
 
-export function showAlert() {
+export function showAlert(text, variant) {
     return {
-        type: SHOW_ALERT
+        type: SHOW_ALERT,
+        payload: {
+            text, variant
+        }
     }
 }
+
 export function hideAlert() {
     return {
         type: HIDE_ALERT
-    }
-}
-
-export function showDeleteAlert() {
-    return {
-        type: SHOW_DELETE_ALERT
     }
 }

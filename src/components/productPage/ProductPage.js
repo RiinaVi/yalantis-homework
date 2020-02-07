@@ -7,30 +7,24 @@ import {Icon} from "antd";
 import './productPage.scss';
 import {formatDate} from '../customFunctions';
 
-import {useDispatch, useSelector} from "react-redux";
-import {increaseQuantity, pageAddToCart} from "../../store/actions/cartActions";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../store/actions/cartActions";
 import {hideAlert, showAlert} from "../../store/actions/alertActions";
-import {isProductInCart} from "../../store/selectors";
-import {connect} from "react-redux";
 
-function ProductPage({hideAlert, showAlert}) {
+export default function ProductPage() {
     let {someProductId} = useParams();
     const [data, setData] = useState(null);
     const [loadingStatus, setLoadingStatus] = useState(true);
 
     const dispatch = useDispatch();
-    const inCart = useSelector(isProductInCart);
 
     const clickHandler = (product) => {
-        if (inCart(product.id)) {
-            dispatch(increaseQuantity(product.id));
-        } else {
-            dispatch(pageAddToCart(product))
-        }
-        showAlert();
-        setTimeout(hideAlert, 2000);
+        dispatch(addToCart(product));
+        dispatch(showAlert('The product was added to the cart!', 'success'));
+        setTimeout(() =>
+            dispatch(hideAlert())
+        , 2000);
     };
-
 
     useEffect(() => {
         axios.get(`https://yalantis-react-school.herokuapp.com/api/v1/products/${someProductId}`)
@@ -71,10 +65,5 @@ function ProductPage({hideAlert, showAlert}) {
     );
 }
 
-const mapDispatchToProps = {
-    showAlert,
-    hideAlert
-};
 
-export default connect(null, mapDispatchToProps)(ProductPage);
 

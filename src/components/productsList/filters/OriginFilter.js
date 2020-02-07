@@ -1,29 +1,26 @@
-import React, {useRef} from "react";
-import {Accordion, Button, Card, Form} from "react-bootstrap";
+import React from "react";
+import {Accordion, Card, Form} from "react-bootstrap";
 import {origins} from "../../../store/constants/filtersParameters";
 import './filter.scss'
 
-export default function OriginFilter({applyOriginFilter}) {
-    const checkboxes = useRef();
+let checkedInputs = [];
 
-    const onChangeHandler = () => {
-        let checkedInputs = checkboxes.current.querySelectorAll('input:checked');
-        let checkedInputsNames = Array.from(checkedInputs).map(input => input.name);
-        applyOriginFilter(checkedInputsNames);
+export default function OriginFilter({applyOriginFilter}) {
+
+    const onChangeHandler = (e) => {
+        checkedInputs.push(e.target.name);
+        applyOriginFilter(checkedInputs);
     };
 
     return (
         <Accordion defaultActiveKey="0">
             <Card>
-                <Card.Header>
-                    Origin
-                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        <div className={'arrow-up'}/>
-                    </Accordion.Toggle>
-                </Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+                    Origin <div className={'arrow-up'}/>
+                </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                        <Form.Group ref={checkboxes}>
+                        <Form.Group>
                             {origins.map((origin, index) => {
                                 return (
                                     <Form.Check

@@ -3,20 +3,24 @@ import {SET_PRICE_RANGE, SET_PRODUCTS_PER_PAGE, SET_ORIGINS} from "../constants/
 export function setPriceRange([minPrice, maxPrice]) {
     return {
         type: SET_PRICE_RANGE,
-        minPrice, maxPrice,
+        payload: {
+            minPrice, maxPrice
+        }
     }
 }
 
 export function setOrigins(origins) {
     return {
         type: SET_ORIGINS,
-        origins
+        payload: {origins}
     }
 }
 
 export function setProductsPerPage(perPage) {
     return {
         type: SET_PRODUCTS_PER_PAGE,
-        perPage
+        payload:{
+            perPage
+        }
     }
 }

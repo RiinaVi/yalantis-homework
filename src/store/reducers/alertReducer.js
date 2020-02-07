@@ -1,4 +1,4 @@
-import {HIDE_ALERT, SHOW_ALERT, SHOW_DELETE_ALERT} from "../constants/actionTypes";
+import {HIDE_ALERT, SHOW_ALERT} from "../constants/actionTypes";
 
 const initialState = {
     visible: false,
@@ -6,26 +6,21 @@ const initialState = {
     text: ''
 };
 
-export default function alertReducer(state=initialState, action) {
-    switch (action.type) {
+export default function alertReducer(state = initialState, {type, payload}) {
+    switch (type) {
         case SHOW_ALERT:
-            return {...state,
+            return {
+                ...state,
                 visible: true,
-                text: 'Product was added to the cart!',
-                variant: 'success'
+                text: payload.text,
+                variant: payload.variant
             };
         case HIDE_ALERT:
             return {
                 ...state,
                 visible: false
             };
-        case SHOW_DELETE_ALERT:
-            return {
-                ...state,
-                visible: true,
-                text: 'Product was deleted from the cart!',
-                variant: 'danger'
-            };
-        default:return state;
+        default:
+            return state;
     }
 }

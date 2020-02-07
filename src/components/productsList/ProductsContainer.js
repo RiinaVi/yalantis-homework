@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Filters from "./filters/Filters";
 import {Col, Container, Row} from "react-bootstrap";
-import {loadProducts} from "../../store/reducers/productsReducer";
+import {loadProducts} from "../../store/actions/productsActions";
 import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from "react-router-dom";
 import PaginationComponent from "./PaginationComponent";
@@ -25,7 +25,8 @@ export default function ProductsContainer() {
         setLoadingProducts(true);
         axios.get('https://yalantis-react-school.herokuapp.com/api/v1/products?' + toQueryString({
             ...filters,
-            page: pageNumber
+            page: pageNumber,
+
         }))
             .then(({data}) => {
                 setLoadingProducts(false);
@@ -33,7 +34,7 @@ export default function ProductsContainer() {
                 setTotalResult(data.totalItems);
                 setTotalNumberOfPages(Math.ceil(data.totalItems / data.perPage));
             });
-    }, [filters, pageNumber, loadProducts]);
+    }, [filters, pageNumber, dispatch]);
 
 
     return (

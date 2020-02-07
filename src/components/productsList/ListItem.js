@@ -6,25 +6,21 @@ import {formatDate} from '../customFunctions';
 import './productsList.scss';
 import {Link} from "react-router-dom";
 
-import {connect, useDispatch, useSelector} from "react-redux";
-import {listAddToCart, increaseQuantity} from "../../store/actions/cartActions";
-import {isProductInCart} from "../../store/selectors";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../store/actions/cartActions";
 import {hideAlert, showAlert} from "../../store/actions/alertActions";
 
-function ListItem({showAlert, hideAlert, product}) {
-    const inCart = useSelector(isProductInCart);
+export default function ListItem({product}) {
     const dispatch = useDispatch();
 
     const {id, name, origin, price, updatedAt} = product;
 
     const clickHandler = (product) => {
-        if (inCart(product.id)) {
-            dispatch(increaseQuantity(product.id));
-        } else {
-            dispatch(listAddToCart(product));
-        }
-        showAlert();
-        setTimeout(hideAlert, 2000);
+        dispatch(addToCart(product));
+        dispatch(showAlert('The product was added to the cart!', 'success'));
+        setTimeout(() => {
+            dispatch(hideAlert())
+        }, 2000);
     };
 
     return (
@@ -52,8 +48,3 @@ function ListItem({showAlert, hideAlert, product}) {
     );
 }
 
-const mapDispatchToProps = {
-    showAlert, hideAlert
-};
-
-export default connect(null, mapDispatchToProps)(ListItem);
