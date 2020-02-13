@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {
     increaseQuantity,
     decreaseQuantity,
-    deleteProduct,
+    deleteFromCart,
     changeQuantity
 } from "../../../store/actions/cartActions";
 
@@ -32,7 +32,7 @@ export default function CartPageItem({item}) {
     };
 
     const deleteClickHandler = () => {
-        dispatch(deleteProduct(id));
+        dispatch(deleteFromCart(id));
         dispatch(showAlert('Item was removed from the cart!', 'danger'));
         setTimeout(() => dispatch(hideAlert()), 2000);
     };

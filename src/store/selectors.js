@@ -1,7 +1,7 @@
 import {createSelector} from "reselect";
 
 export const getProductsInCart = state => state.cart;
-export const getProducts = state => state.products.allProducts;
+export const getProducts = state => Object.values(state.products);
 export const getFilters = state => state.queryFilters;
 export const getAlert = state => state.alert;
 

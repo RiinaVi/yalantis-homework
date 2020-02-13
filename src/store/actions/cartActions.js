@@ -1,7 +1,7 @@
 import {
     CHANGE_QUANTITY, DECREASE_QUANTITY,
-    DELETE_PRODUCT,
-    INCREASE_QUANTITY, ADD_TO_CART
+    DELETE_FROM_CART,
+    INCREASE_QUANTITY, ADD_TO_CART, ADD_ORDER
 } from "../constants/actionTypes";
 
 export function addToCart({id, name, price, quantity}) {
@@ -14,9 +14,9 @@ export function addToCart({id, name, price, quantity}) {
 }
 
 
-export function deleteProduct(id) {
+export function deleteFromCart(id) {
     return {
-        type: DELETE_PRODUCT,
+        type: DELETE_FROM_CART,
         payload:{
             id
         }
@@ -49,3 +49,12 @@ export function decreaseQuantity(id) {
         }
     }
 }
+
+
+export function addOrder() {
+    return{
+        type: ADD_ORDER,
+        // payload: products
+    }
+}
+

@@ -15,7 +15,7 @@ export default function PerPageSelect({applyProductsPerPage}) {
         <Accordion defaultActiveKey="0">
             <Card>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-                    Show: <div className={'arrow-up'}/>
+                    Show: <div className='arrow-up'>&#10094;</div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>

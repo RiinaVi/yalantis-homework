@@ -27,7 +27,7 @@ export default function ProductPage() {
     };
 
     useEffect(() => {
-        axios.get(`https://yalantis-react-school.herokuapp.com/api/v1/products/${someProductId}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/products/${someProductId}`)
             .then(res => {
                 setData(res.data);
                 setLoadingStatus(false);

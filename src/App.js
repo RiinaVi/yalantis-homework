@@ -10,6 +10,8 @@ import AlertComponent from "./components/header/AlertComponent";
 import './App.css';
 import {Provider} from "react-redux";
 import {store} from "./store/store";
+import OrdersHistoryPage from "./components/orders/OrdersHistoryPage";
+import OrderPage from "./components/orders/OrderPage";
 
 export default function App() {
     return (
@@ -23,7 +25,11 @@ export default function App() {
                     <Route exact path="/cart" component={CartPage}/>
                     <Route path='/product/:someProductId' component={ProductPage}/>
                     <Route path="/page/:pageNumber" component={ProductsContainer}/>
-                    <Route path="/" component={ProductsContainer}/>
+                    <Route exact path="/" component={ProductsContainer}/>
+                    <Route exact path='/my-products' component={ProductsContainer}/>
+                    <Route path='/my-products/page/:pageNumber' component={ProductsContainer}/>
+                    <Route exact path='/my-orders' component={OrdersHistoryPage}/>
+                    <Route path='/my-orders/:orderId' component={OrderPage}/>
                     <Route path='*'>
                         <Redirect to='/'/>
                     </Route>

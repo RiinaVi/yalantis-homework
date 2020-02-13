@@ -10,20 +10,23 @@ import {withRouter} from "react-router-dom";
 function Filters({history}) {
 
     const dispatch = useDispatch();
-
     const applyOriginFilter = origins => {
-        dispatch(setOrigins(origins));
-        history.push("/page/1");
+        applyFilter(setOrigins, origins);
     };
 
     const applyPriceFilter = (priceRange) => {
-        dispatch(setPriceRange(priceRange));
-        history.push("/page/1");
+        applyFilter(setPriceRange, priceRange);
     };
 
     const applyProductsPerPage = perPage => {
-        dispatch(setProductsPerPage(perPage));
-        history.push("/page/1");
+        applyFilter(setProductsPerPage, perPage);
+    };
+
+    const applyFilter = (setter, setterValue) => {
+        dispatch(setter(setterValue));
+        if (history.location.pathname.indexOf('page') > 0) {
+            history.push(history.location.pathname.slice(0, history.location.pathname.indexOf('page')));
+        }
     };
 
     return (

@@ -41,7 +41,7 @@ export default function PriceFilter({applyPriceFilterHandler}) {
             <Card>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
                     Price, $
-                    <div className={'arrow-up arrow'}/>
+                    <div className='arrow-up'>&#10094;</div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>

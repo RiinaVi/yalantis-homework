@@ -1,0 +1,15 @@
+select {
+  width: 85%;
+  text-align-last: center;
+}
+
+.input-group-text {
+  text-transform: capitalize;
+}
+
+.error-message {
+  color: #dc3545;
+  position: relative;
+  top: -10px;
+  left: 15%;
+}

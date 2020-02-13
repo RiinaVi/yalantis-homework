@@ -1,14 +1,18 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 import cartsReducer from "./cartReducer";
 import alertReducer from "./alertReducer";
 import productsReducer from "./productsReducer";
 import queryReducer from "./queryReducer";
+import {reducer as formReducer} from 'redux-form';
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     cart: cartsReducer,
     alert: alertReducer,
     products: productsReducer,
     queryFilters: queryReducer,
+    form: formReducer
 });
 
-export default rootReducer;
+export default function rootReducer(state, action) {
+    return (appReducer(state, action));
+};

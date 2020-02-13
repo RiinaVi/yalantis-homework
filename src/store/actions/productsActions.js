@@ -1,4 +1,4 @@
-import {LOAD_PRODUCTS} from "../constants/actionTypes";
+import {DELETE_PRODUCT, LOAD_PRODUCTS, SUBMIT_PRODUCT} from "../constants/actionTypes";
 
 export function loadProducts(products) {
     return {
@@ -6,5 +6,18 @@ export function loadProducts(products) {
         payload: {
             products
         }
+    }
+}
+export function submitProduct(product) {
+    return {
+        type: SUBMIT_PRODUCT,
+        payload: product
+    }
+}
+
+export function deleteProduct(id) {
+    return{
+        type: DELETE_PRODUCT,
+        payload: id
     }
 }

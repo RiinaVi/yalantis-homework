@@ -1,6 +1,23 @@
 .tableContainer {
   display: flex;
   justify-content: center;
+  .row{
+    justify-content: center;
+
+    .ordersLink{
+      font-size: 20px;
+      color: inherit;
+      margin-left: 10px;
+      text-decoration: underline;
+      text-decoration-color: #2f3939;
+      text-decoration-style: dashed;
+      text-underline-position: under;
+      &:hover{
+       color:  #1890ff;
+        text-decoration-color: #1890ff;
+      }
+    }
+  }
 }
 
 .table-bordered {
@@ -32,3 +49,9 @@ input[type=number] {
 input{
   text-align: center;
 }
+
+#confirm-order-button {
+  position: relative;
+}
+
+

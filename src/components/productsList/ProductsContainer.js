@@ -9,10 +9,13 @@ import {useParams} from "react-router-dom";
 import PaginationComponent from "./PaginationComponent";
 import {toQueryString} from "../customFunctions";
 import {getFilters} from "../../store/selectors";
+import {withRouter} from 'react-router-dom';
 
-export default function ProductsContainer() {
+
+function ProductsContainer({location}) {
     const filters = useSelector(getFilters);
     const dispatch = useDispatch();
+    const {pathname} = location;
 
     const [loadingProducts, setLoadingProducts] = useState(false);
 
@@ -21,35 +24,50 @@ export default function ProductsContainer() {
 
     const pageNumber = parseInt(useParams().pageNumber || filters.page);
 
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: process.env.REACT_APP_API_KEY
+        }
+
+    };
+
     useEffect(() => {
         setLoadingProducts(true);
-        axios.get('https://yalantis-react-school.herokuapp.com/api/v1/products?' + toQueryString({
+        axios.get(`${process.env.REACT_APP_API_URL}/products?` + toQueryString({
             ...filters,
             page: pageNumber,
-
-        }))
+            editable: pathname.includes('/my-products')
+        }),
+            config
+        )
             .then(({data}) => {
                 setLoadingProducts(false);
                 dispatch(loadProducts(data.items));
                 setTotalResult(data.totalItems);
                 setTotalNumberOfPages(Math.ceil(data.totalItems / data.perPage));
             });
-    }, [filters, pageNumber, dispatch]);
+    }, [filters, pageNumber, pathname, dispatch]);
 
 
     return (
-        <Container>
-            <Row>
-                <Col md={2}>
-                    <Filters/>
-                </Col>
-                <Col md={10}>
-                    <ProductsList loadingProducts={loadingProducts} total={totalResult}/>
-                </Col>
-            </Row>
-            <Row>
-                <PaginationComponent numberOfPages={totalNumberOfPages} currentPage={pageNumber}/>
-            </Row>
-        </Container>
+        <>
+            <Container>
+                <Row>
+                    <Col md={2}>
+                        <Filters/>
+                    </Col>
+                    <Col md={10}>
+                        <ProductsList loadingProducts={loadingProducts} total={totalResult}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <PaginationComponent numberOfPages={totalNumberOfPages} currentPage={pageNumber}/>
+                </Row>
+            </Container>
+        </>
     )
 }
+
+export default withRouter(ProductsContainer);

@@ -8,7 +8,14 @@ let checkedInputs = [];
 export default function OriginFilter({applyOriginFilter}) {
 
     const onChangeHandler = (e) => {
-        checkedInputs.push(e.target.name);
+        if (checkedInputs.includes(e.target.name)) {
+            checkedInputs.map((current, index) => {
+                if (current === e.target.name) {
+                    checkedInputs.splice(index, 1)
+                }
+                return current
+            })
+        } else checkedInputs.push(e.target.name);
         applyOriginFilter(checkedInputs);
     };
 
@@ -16,7 +23,7 @@ export default function OriginFilter({applyOriginFilter}) {
         <Accordion defaultActiveKey="0">
             <Card>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-                    Origin <div className={'arrow-up'}/>
+                    Origin <div className='arrow-up'>&#10094;</div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>

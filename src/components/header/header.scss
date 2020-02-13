@@ -1,10 +1,11 @@
 nav {
   background: #d7d0d7;
   margin-bottom: 10px;
-  .productsLink{
-  font-size: 25px;
-  color: inherit;
-}
+
+  .productsLink {
+    font-size: 25px;
+    color: inherit;
+  }
 
 }
 
@@ -20,7 +21,7 @@ nav {
   min-block-size: 2em;
 }
 
-.alert-success, .alert-danger {
+.alert-success, .alert-danger, .alert-warning {
   position: fixed;
   left: 0;
   right: 0;
