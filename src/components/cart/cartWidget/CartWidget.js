@@ -1,21 +1,32 @@
-import React, {useContext} from "react";
-import './cartWidget.scss';
-import {Icon} from 'antd';
+import React from "react";
 import {Link} from "react-router-dom";
-import {CartContext} from "../../../providers/CartProvider";
+import {getCartQuantity, getCartSum} from "../../../store/selectors";
+import {Tooltip} from "react-bootstrap";
+import {useSelector} from "react-redux";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import './cartWidget.scss';
 
 export default function CartWidget() {
-    const {cartSum} = useContext(CartContext);
+    const quantity = useSelector(getCartQuantity);
+    const cartSum = useSelector(getCartSum);
 
     return (
         <div className={'cartWidget'}>
-            <div className={'sum'}>
-                {cartSum}
+            <div className="total">
+                <OverlayTrigger
+                    placement={'bottom'}
+                    overlay={
+                        <Tooltip id={`tooltip-${'bottom'}`}>
+                            {quantity} items
+                        </Tooltip>
+                    }>
+                    <span>{`Total: $${cartSum}`}</span>
+                </OverlayTrigger>
             </div>
             <Link to="/cart">
                 Show cart
-                <Icon type="shopping-cart"/>
             </Link>
         </div>
     );
 }
+

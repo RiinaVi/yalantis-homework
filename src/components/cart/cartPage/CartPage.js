@@ -1,21 +1,22 @@
-import React, {useContext} from "react";
+import React from "react";
+import {useSelector} from 'react-redux'
+import {getCartSum, getProductsInCart} from "../../../store/selectors";
 import CartPageItem from "./CartPageItem";
 import {Table} from 'react-bootstrap';
 import './cartPage.scss';
-import {CartContext} from "../../../providers/CartProvider";
 
 export default function CartPage() {
-    const {cartSum, productsInCart} = useContext(CartContext);
+    const cartSum = useSelector(getCartSum);
+    const productsInCart = useSelector(getProductsInCart);
 
     return (
         <div className={'tableContainer'}>
             <Table striped bordered hover size="sm">
                 <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Name</th>
+                    <th colSpan={3}>Product</th>
                     <th>Price</th>
-                    <th>Quantity</th>
+                    <th width={150}>Quantity</th>
                     <th>Total</th>
                 </tr>
                 </thead>
@@ -25,14 +26,17 @@ export default function CartPage() {
                         return <CartPageItem item={item} key={item.id}/>
                     })
                 }
+                </tbody>
+                <tfoot>
                 <tr>
-                    <td className={'totalLabel'} colSpan={'4'}>Total:</td>
+                    <td className={'totalLabel'} colSpan={5}>Cart subtotal:</td>
                     <td>
-                        {cartSum}$
+                        ${cartSum}
                     </td>
                 </tr>
-                </tbody>
+                </tfoot>
             </Table>
         </div>
     );
 }
+

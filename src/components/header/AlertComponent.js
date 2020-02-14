@@ -1,16 +1,17 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Alert} from "react-bootstrap";
-import {CartContext} from "../../providers/CartProvider";
+import {useSelector} from "react-redux";
+import {getAlert} from "../../store/selectors";
 import './header.scss';
 
 export default function AlertComponent() {
-    const {alertVisibility, setAlertVisibility} = useContext(CartContext);
+    const {variant, text, visible} = useSelector(getAlert);
     return(
         <Alert className={'alert'}
-               show={alertVisibility}
-               variant={'success'}
-               onClose={() =>setAlertVisibility(false)} dismissible>
-            Product was added to the cart!
+               show={visible}
+               variant={variant}
+               dismissible>
+            {text}
         </Alert>
     )
 }

@@ -1,15 +1,27 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Button, Card} from "react-bootstrap";
 import {Icon} from 'antd';
 import img from "../../imageNoImageSmall.gif";
 import {formatDate} from '../customFunctions';
-import {CartContext} from "../../providers/CartProvider";
 import './productsList.scss';
 import {Link} from "react-router-dom";
 
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../store/actions/cartActions";
+import {hideAlert, showAlert} from "../../store/actions/alertActions";
+
 export default function ListItem({product}) {
+    const dispatch = useDispatch();
+
     const {id, name, origin, price, updatedAt} = product;
-    const {addToCart} = useContext(CartContext);
+
+    const clickHandler = (product) => {
+        dispatch(addToCart(product));
+        dispatch(showAlert('The product was added to the cart!', 'success'));
+        setTimeout(() => {
+            dispatch(hideAlert())
+        }, 2000);
+    };
 
     return (
         <Card style={{marginBottom: '10px'}} className={'productCard'}>
@@ -21,7 +33,9 @@ export default function ListItem({product}) {
                 <Card.Text>
                     Origin: {origin}<br/>{price} $
                 </Card.Text>
-                <Button onClick={() => addToCart(product)} variant="outline-success">
+                <Button onClick={() =>
+                    clickHandler(product)
+                } variant="outline-success">
                     Add to cart
                     <Icon type="shopping-cart"/>
                 </Button>
@@ -33,3 +47,4 @@ export default function ListItem({product}) {
         </Card>
     );
 }
+
