@@ -10,6 +10,7 @@ import PaginationComponent from "./PaginationComponent";
 import {toQueryString} from "../customFunctions";
 import {getFilters} from "../../store/selectors";
 import {withRouter} from 'react-router-dom';
+import {setTotalNumberOfPages} from "../../store/actions/pageActions";
 
 
 function ProductsContainer({location}) {
@@ -18,12 +19,9 @@ function ProductsContainer({location}) {
     const {pathname} = location;
 
     const [loadingProducts, setLoadingProducts] = useState(false);
-
-    const [totalNumberOfPages, setTotalNumberOfPages] = useState(null);
     const [totalResult, setTotalResult] = useState(null);
 
-    const pageNumber = parseInt(useParams().pageNumber || filters.page);
-
+    const pageNumber = parseInt(useParams().pageNumber || filters.page) || 1;
 
     const config = {
         headers: {
@@ -46,7 +44,7 @@ function ProductsContainer({location}) {
                 setLoadingProducts(false);
                 dispatch(loadProducts(data.items));
                 setTotalResult(data.totalItems);
-                setTotalNumberOfPages(Math.ceil(data.totalItems / data.perPage));
+                dispatch(setTotalNumberOfPages(Math.ceil(data.totalItems / data.perPage)));
             });
     }, [filters, pageNumber, pathname, dispatch]);
 
@@ -63,7 +61,7 @@ function ProductsContainer({location}) {
                     </Col>
                 </Row>
                 <Row>
-                    <PaginationComponent numberOfPages={totalNumberOfPages} currentPage={pageNumber}/>
+                    <PaginationComponent currentPage={pageNumber}/>
                 </Row>
             </Container>
         </>

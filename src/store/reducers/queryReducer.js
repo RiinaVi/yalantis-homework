@@ -6,7 +6,7 @@ const initialState = {
     origins: '',
 };
 
-export default function productsReducer(state = initialState, {type, payload}) {
+export default function (state = initialState, {type, payload}) {
     switch (type) {
         case SET_PRICE_RANGE:
             return {

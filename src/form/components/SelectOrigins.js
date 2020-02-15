@@ -1,21 +1,12 @@
 import {InputGroup} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
-import axios from 'axios';
+import React from "react";
+import {useSelector} from "react-redux";
+import {getOrigins} from "../../store/selectors";
 import './form.scss'
 
 export default function SelectOrigins({input, input: {name}, meta: {touched, error, active}}) {
 
-    const [origins, setOrigins] = useState([]);
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/products-origins`)
-            .then((res) => {
-                setOrigins(res.data.items.reduce((acc, current) => {
-                    acc.push(current);
-                    return acc
-                }, []))
-            })
-    }, []);
+    const origins = useSelector(getOrigins);
 
     return (
         <>

@@ -3,11 +3,15 @@ import axios from 'axios';
 import {Container, Spinner, Table} from "react-bootstrap";
 import OrdersHistoryPageItem from "./OrdersHistoryPageItem";
 import './orders.scss'
+import {useDispatch, useSelector} from "react-redux";
+import {getAllOrders} from "../../store/selectors";
+import {setAllOrders} from "../../store/actions/ordersActions";
 
 export default function OrdersHistoryPage() {
 
     const [loadingOrders, setLoadingOrders] = useState(false);
-    const [orders, setOrders] = useState([]);
+    const dispatch = useDispatch();
+    const orders = useSelector(getAllOrders);
 
     const config = {
         headers: {
@@ -21,11 +25,11 @@ export default function OrdersHistoryPage() {
         axios.get(`${process.env.REACT_APP_API_URL}/orders`,
             config)
             .then(res => {
-                    setOrders(res.data.items);
+                    dispatch(setAllOrders(res.data.items));
                     setLoadingOrders(false);
                 }
             )
-    }, []);
+    }, [dispatch]);
 
     return (
         <div>

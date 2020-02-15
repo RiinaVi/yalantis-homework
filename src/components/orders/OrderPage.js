@@ -4,12 +4,16 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import {Col, Container, Spinner, Table} from "react-bootstrap";
 import OrderPageItem from "./OrderPageItem";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentOrder} from "../../store/selectors";
+import {setCurrentOrder} from "../../store/actions/ordersActions";
 
 export default function OrderPage() {
 
     let {orderId} = useParams();
-    const [data, setData] = useState(null);
     const [loadingStatus, setLoadingStatus] = useState(true);
+    const currentOrder = useSelector(getCurrentOrder);
+    const dispatch = useDispatch();
 
     const config = {
         headers: {
@@ -23,7 +27,7 @@ export default function OrderPage() {
         axios.get(`${process.env.REACT_APP_API_URL}/orders/${orderId}`,
             config)
             .then(res => {
-                    setData(res.data);
+                    dispatch(setCurrentOrder(res.data));
                     setLoadingStatus(false);
                 }
             )
@@ -45,7 +49,7 @@ export default function OrderPage() {
                         </thead>
                         <tbody>
                         {
-                            Object.values(data.pieces).map(item => {
+                            Object.values(currentOrder.pieces).map(item => {
                                 return <OrderPageItem piece={item} key={item.id}/>
                             })
                         }
@@ -56,7 +60,7 @@ export default function OrderPage() {
                             <td>
                                 $
                                 {
-                                    data.pieces.reduce((acc, piece) => {
+                                    currentOrder.pieces.reduce((acc, piece) => {
                                         return acc + piece.product.price * piece.count
                                     }, 0)
                                 }

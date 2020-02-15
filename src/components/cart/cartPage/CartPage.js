@@ -4,8 +4,8 @@ import {getCartSum, getProductsInCart} from "../../../store/selectors";
 import CartPageItem from "./CartPageItem";
 import {Button, Table, Row, Container} from 'react-bootstrap';
 import {Link} from "react-router-dom";
-import './cartPage.scss';
 import useAddOrder from "./useAddOrder";
+import './cartPage.scss';
 
 export default function CartPage() {
     const cartSum = useSelector(getCartSum);
@@ -21,7 +21,10 @@ export default function CartPage() {
 
         <div className={'tableContainer'}>
             {!cartSum ?
-                <h2>Cart is empty</h2>
+                <>
+                    <h3>Cart is empty! See </h3>
+                    <Link className='ordersLink' to={'/my-orders'}>Orders History</Link>
+                </>
                 :
                 <Container>
                     <Row>
