@@ -10,15 +10,12 @@ function Filters() {
     const dispatch = useDispatch();
 
     const applyOriginFilter = origins => {
-
         applyFilter(setOrigins, origins);
-
     };
 
-    const applyPriceFilter = (priceRange) => {
+    const applyPriceFilter = priceRange => {
         applyFilter(setPriceRange, priceRange);
     };
-
 
     const applyFilter = (setter, setterValue) => {
         dispatch(setter(setterValue));

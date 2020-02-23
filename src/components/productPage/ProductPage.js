@@ -4,7 +4,7 @@ import img from '../../imageNoImageSmall.gif';
 import {Button, Image, Container, Col, Row, Spinner} from "react-bootstrap";
 import {Icon} from "antd";
 import './productPage.scss';
-import {formatDate} from '../customFunctions';
+import {formatDate} from '../../utils/customFunctions';
 
 import {useDispatch, useSelector} from "react-redux";
 import {addToCart} from "../../store/actions/cartActions";

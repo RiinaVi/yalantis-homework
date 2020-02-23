@@ -26,9 +26,7 @@ export default function App() {
                     <Route path='/my-products/page/:pageNumber' component={ProductsContainer}/>
                     <Route exact path='/my-orders' component={OrdersHistoryPage}/>
                     <Route path='/my-orders/:orderId' component={OrderPage}/>
-                    <Route path='*'>
-                        <Redirect to='/'/>
-                    </Route>
+                    <Redirect to='/'/>
                 </Switch>
             </Router>
         </Provider>

@@ -1,6 +1,11 @@
-import {DELETE_PRODUCT, LOAD_CURRENT_PRODUCT, LOAD_PRODUCTS, SUBMIT_PRODUCT} from "../constants/actionTypes";
+import {
+    DELETE_PRODUCT,
+    LOAD_CURRENT_PRODUCT,
+    LOAD_PRODUCTS,
+    SUBMIT_PRODUCT
+} from "../constants/actionTypes";
 
-export function loadProducts(products) {
+export function setProducts(products) {
     return {
         type: LOAD_PRODUCTS,
         payload: {
@@ -29,3 +34,4 @@ export function deleteProduct(id) {
         payload: id
     }
 }
+

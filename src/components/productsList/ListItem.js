@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Button, Card} from "react-bootstrap";
 import {Icon} from 'antd';
 import img from "../../imageNoImageSmall.gif";
-import {formatDate} from '../customFunctions';
+import {formatDate} from '../../utils/customFunctions';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addToCart} from "../../store/actions/cartActions";

@@ -11,7 +11,7 @@ function PaginationComponent() {
     const dispatch = useDispatch();
     let currentPage = parseInt(useSelector(getPageNumber)) || 1;
     const pageSize = parseInt(useSelector(getFilters).perPage) || 50;
-    const total = parseInt(useSelector(getTotalNumberOfProducts));
+    const total = parseInt(useSelector(getTotalNumberOfProducts)) || 0;
 
     function onClickHandler(num) {
         dispatch(setPageNumber(num));

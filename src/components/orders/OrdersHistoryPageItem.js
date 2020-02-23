@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {formatDate} from "../customFunctions";
+import {formatDate} from "../../utils/customFunctions";
 
 export default function OrdersHistoryPageItem({order, index}) {
 

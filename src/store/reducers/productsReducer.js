@@ -6,7 +6,9 @@ import {
     SUBMIT_PRODUCT
 } from "../constants/actionTypes";
 
-const initialState = {};
+const initialState = {
+
+};
 
 export default function productsReducer(state = initialState, {type, payload}) {
     switch (type) {

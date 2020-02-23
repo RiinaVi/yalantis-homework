@@ -1,12 +1,4 @@
-import {SET_TOTAL_NUMBER_OF_PAGES, SET_TOTAL_NUMBER_OF_PRODUCTS} from "../constants/actionTypes";
-
-
-export function setTotalNumberOfPages(totalNumberOfPages) {
-    return {
-        type: SET_TOTAL_NUMBER_OF_PAGES,
-        payload: totalNumberOfPages
-    }
-}
+import {SET_TOTAL_NUMBER_OF_PRODUCTS} from "../constants/actionTypes";
 
 export function setTotalNumberOfProducts(totalNumberOfProducts) {
     return{
@@ -14,5 +6,3 @@ export function setTotalNumberOfProducts(totalNumberOfProducts) {
         payload: totalNumberOfProducts
     }
 }
-
-
