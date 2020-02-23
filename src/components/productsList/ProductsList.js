@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from "./ListItem";
 import {Col, Container, Row, Spinner} from "react-bootstrap";
-import { useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {getLoadingStatus, getProducts, getTotalNumberOfProducts} from "../../store/selectors";
 import './productsList.scss';
 

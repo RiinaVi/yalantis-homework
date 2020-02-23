@@ -36,7 +36,7 @@ function Header({location}) {
             <Link className={'productsLink mr-auto'} to="/">Products</Link>
             <Link className={' productsLink mr-auto'} to='/my-products'>My products</Link>
             <Button onClick={() => handleShow()}
-                    className={'mr-auto'} variant="outline-warning"><Icon type="plus" /> product
+                    className={'mr-auto'} variant="outline-warning"><Icon type="plus"/> product
             </Button>
             <ModalComponent
                 isFormForEdition={false}

@@ -3,13 +3,7 @@ import img from '../../../imageNoImageSmall.gif';
 import {Image, Button, InputGroup} from "react-bootstrap";
 import './cartPage.scss'
 import {Link} from "react-router-dom";
-import {
-    increaseQuantity,
-    decreaseQuantity,
-    deleteFromCart,
-    changeQuantity
-} from "../../../store/actions/cartActions";
-
+import {increaseQuantity, decreaseQuantity, deleteFromCart, changeQuantity} from "../../../store/actions/cartActions";
 import {useDispatch} from "react-redux";
 import {hideAlert, showAlert} from "../../../store/actions/alertActions";
 import FormControl from "react-bootstrap/FormControl";

@@ -29,7 +29,6 @@ export const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER';
 
 export const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
 export const LOAD_DATA = 'LOAD_DATA';
-export const LOAD_ITEM = 'LOAD_ITEM';
 
 export const CREATE_MY_PRODUCT = 'CREATE_MY_PRODUCT';
 export const EDIT_MY_PRODUCT = 'EDIT_MY_PRODUCT';

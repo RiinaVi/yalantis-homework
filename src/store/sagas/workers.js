@@ -1,5 +1,5 @@
 import {getFilters, getPageNumber} from "../selectors";
-import {toQueryString} from "../../components/customFunctions";
+import { toQueryString} from "../../components/customFunctions";
 import {setLoadingStatus} from "../actions/loadingStatusActions";
 import {createSubmitProduct, dataGetter, deleteSubmitProduct, editSubmitProduct, fetchItem, fetchProducts, postNewProduct} from "./requests";
 import {loadCurrentProduct, loadProducts, submitProduct, deleteProduct} from "../actions/productsActions";
@@ -9,20 +9,16 @@ import {loadOrigins} from "../actions/originsActions";
 import {hideAlert, showAlert} from "../actions/alertActions";
 import {LOAD_CURRENT_PRODUCT} from "../constants/actionTypes";
 import {setAllOrders, setCurrentOrder} from "../actions/ordersActions";
-import {setOrigins} from "../actions/queryActions";
 
 function changeURL(url) {
     window.history.pushState(null, '', window.location.pathname + '?' + url);
 }
 
-export function* workerSetFilters({payload}) {
-    yield delay(3000);
-    console.log('filters has been changed!. Push to state', payload)
+export function* workerSetFilters() {
     const filters = yield select(getFilters);
     const pageNumber = yield select(getPageNumber);
     let url = toQueryString({...filters, page: pageNumber});
     if (!window.location.pathname.includes('/my-products')) yield call(changeURL, url);
-    yield put(setOrigins(payload.origins))
 }
 
 export function* workerLoadItem(action) {
@@ -34,11 +30,10 @@ export function* workerLoadItem(action) {
 }
 
 export function* workerLoadProducts() {
-    yield call(workerLoadOrigins);
-
     const filters = yield select(getFilters);
     yield put(setLoadingStatus(true));
-
+    yield delay(1000);
+    yield call(workerLoadOrigins);
     const res = yield call(fetchProducts, filters);
 
     yield put(loadProducts(res.data.items));

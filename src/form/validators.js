@@ -1,10 +1,4 @@
-import {
-    composeValidators,
-    combineValidators,
-    isRequired,
-    hasLengthBetween,
-    matchesPattern
-} from 'revalidate';
+import {composeValidators, combineValidators, isRequired, hasLengthBetween, matchesPattern} from 'revalidate';
 
 export const productFormValidator = combineValidators({
     name: composeValidators(

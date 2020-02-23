@@ -9,7 +9,7 @@ export function formatDate(date) {
 
 export function debounce(f, ms) {
     let isCooldown = false;
-    return function() {
+    return function () {
         if (isCooldown) return;
         f.apply(this, arguments);
         isCooldown = true;
@@ -18,7 +18,7 @@ export function debounce(f, ms) {
 
 }
 
-export  const toQueryString = (obj) => {
+export const toQueryString = (obj) => {
     let str = [];
     for (let p in obj)
         if (obj.hasOwnProperty(p)) {

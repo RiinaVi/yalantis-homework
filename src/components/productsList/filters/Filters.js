@@ -3,10 +3,9 @@ import OriginFilter from "./OriginFilter";
 import PriceFilter from "./PriceFilter";
 import {useDispatch} from "react-redux";
 import {setPriceRange, setOrigins, setPageNumber} from "../../../store/actions/queryActions";
-import {withRouter} from "react-router-dom";
 import './filter.scss'
 
-function Filters({history}) {
+function Filters() {
 
     const dispatch = useDispatch();
 
@@ -23,10 +22,7 @@ function Filters({history}) {
 
     const applyFilter = (setter, setterValue) => {
         dispatch(setter(setterValue));
-        if (history.location.pathname.indexOf('page') > 0) {
-            history.push(history.location.pathname.slice(0, history.location.pathname.indexOf('page')));
-        }
-        dispatch(setPageNumber(1));
+        dispatch(setPageNumber('1'));
     };
 
     return (
@@ -37,4 +33,4 @@ function Filters({history}) {
     )
 }
 
-export default withRouter(Filters);
+export default Filters;

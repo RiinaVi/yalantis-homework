@@ -49,11 +49,11 @@ export function deleteSubmitProduct(id) {
 
 export function postNewProduct(products) {
     const productsAsJSON = Object.values(products).map((item) => {
-        return  {
+        return {
             "productId": item.id,
             "count": item.quantity ? item.quantity : 1
         }
-    },[]);
+    }, []);
 
     const data = {
         "order": {

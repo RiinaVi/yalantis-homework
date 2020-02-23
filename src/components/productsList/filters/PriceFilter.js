@@ -5,10 +5,10 @@ import 'antd/dist/antd.css';
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import {minPrice, maxPrice} from "../../../store/constants/filtersParameters";
-import './filter.scss'
 import debounce from 'lodash.debounce';
 import {useSelector} from "react-redux";
 import {getFilters} from "../../../store/selectors";
+import './filter.scss'
 
 const debouncedFunction = debounce((applyPriceFilterHandler, [minPrice, maxPrice]) => {
     applyPriceFilterHandler([minPrice, maxPrice]);
@@ -19,8 +19,8 @@ export default function PriceFilter({applyPriceFilterHandler}) {
     const queryMinPrice = (useSelector(getFilters).minPrice);
     const queryMaxPrice = (useSelector(getFilters).maxPrice);
 
-    const [minFilterPrice, setMinFilterPrice] = useState(parseInt(queryMinPrice) || 0);
-    const [maxFilterPrice, setMaxFilterPrice] = useState(parseInt(queryMaxPrice) || 1000);
+    const [minFilterPrice, setMinFilterPrice] = useState(parseInt(queryMinPrice) || minPrice);
+    const [maxFilterPrice, setMaxFilterPrice] = useState(parseInt(queryMaxPrice) || maxPrice);
 
     const onPriceRangeChangeHandler = ([minFilterPrice, maxFilterPrice]) => {
         setMinFilterPrice(minFilterPrice);
@@ -59,7 +59,6 @@ export default function PriceFilter({applyPriceFilterHandler}) {
                             </InputGroup.Prepend>
                             <FormControl
                                 value={minFilterPrice}
-                                // type={'number'}
                                 onChange={onMinPriceInputChangeHandler}
                             />
                         </InputGroup>
@@ -69,7 +68,6 @@ export default function PriceFilter({applyPriceFilterHandler}) {
                             </InputGroup.Prepend>
                             <FormControl
                                 value={maxFilterPrice}
-                                // type={'number'}
                                 onChange={onMaxPriceInputChangeHandler}
                             />
                         </InputGroup>

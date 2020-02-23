@@ -3,9 +3,7 @@ import {Button, Card} from "react-bootstrap";
 import {Icon} from 'antd';
 import img from "../../imageNoImageSmall.gif";
 import {formatDate} from '../customFunctions';
-import './productsList.scss';
 import {Link} from "react-router-dom";
-
 import {useDispatch, useSelector} from "react-redux";
 import {addToCart} from "../../store/actions/cartActions";
 import {hideAlert, showAlert} from "../../store/actions/alertActions";
@@ -15,6 +13,7 @@ import useHandleSubmit from "../../form/useHandleSubmit";
 import useHandleDelete from "../../form/useHandleDelete";
 import {editMyProduct} from "../../store/actions/formActions";
 import {getLoadingStatus} from "../../store/selectors";
+import './productsList.scss';
 
 function ListItem({product, location}) {
     const dispatch = useDispatch();
@@ -63,23 +62,23 @@ function ListItem({product, location}) {
             {!loadingProducts &&
             <div className={'buttons'}>
                 {pathname.includes('/my-products') ?
-                <>
-                    <Button variant='outline-primary'
-                            onClick={handleShow}>
-                        <Icon type="edit"/>
+                    <>
+                        <Button variant='outline-primary'
+                                onClick={handleShow}>
+                            <Icon type="edit"/>
+                        </Button>
+                        <Button variant='outline-primary'
+                                onClick={() => onDeleteProduct(id)}>
+                            <Icon type="delete"/>
+                        </Button>
+                    </>
+                    :
+                    <Button className={'cart-button'} onClick={() =>
+                        clickHandler(product)}
+                            variant="outline-success">
+                        Add to cart &nbsp;
+                        <Icon type="shopping-cart"/>
                     </Button>
-                    <Button variant='outline-primary'
-                            onClick={() => onDeleteProduct(id)}>
-                        <Icon type="delete"/>
-                    </Button>
-                </>
-                :
-                <Button className={'cart-button'} onClick={() =>
-                    clickHandler(product)}
-                        variant="outline-success">
-                    Add to cart &nbsp;
-                    <Icon type="shopping-cart"/>
-                </Button>
                 }
             </div>
             }

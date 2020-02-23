@@ -1,10 +1,4 @@
-import {
-    SET_PRICE_RANGE,
-    SET_PRODUCTS_PER_PAGE,
-    SET_ORIGINS,
-    SET_PAGE_NUMBER,
-} from "../constants/actionTypes";
-
+import {SET_PRICE_RANGE, SET_PRODUCTS_PER_PAGE, SET_ORIGINS, SET_PAGE_NUMBER,} from "../constants/actionTypes";
 import {parse} from 'qs'
 
 let search = parse(window.location.search.slice(1));
@@ -34,11 +28,10 @@ export default function (state = initialState, {type, payload}) {
                 perPage: payload
             };
         case SET_PAGE_NUMBER:
-            return state;
-            // return {
-            //     ...state,
-            //     page: payload
-            // };
+            return {
+                ...state,
+                page: payload
+            };
         default:
             return state;
     }

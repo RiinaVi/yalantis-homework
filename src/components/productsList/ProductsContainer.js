@@ -13,11 +13,11 @@ function ProductsContainer({history}) {
     const filters = useSelector(getFilters);
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(loadData());
-    },[
+    }, [
         Object.values(filters),
-        // history.location.pathname,
+        history.location.pathname,
         dispatch]);
 
     return (
@@ -32,7 +32,7 @@ function ProductsContainer({history}) {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={{span:10, offset:2}}>
+                    <Col md={{span: 10, offset: 2}}>
                         <Container>
                             <PaginationComponent/>
                         </Container>
@@ -43,4 +43,4 @@ function ProductsContainer({history}) {
     )
 }
 
-export default withRouter( ProductsContainer);
+export default withRouter(ProductsContainer);
