@@ -6,7 +6,16 @@ nav {
     font-size: 25px;
     color: inherit;
   }
-
+  .btn{
+    color: unset;
+    border: 1px solid grey;
+    border-radius: 0;
+    &:hover{
+      background: #3D816A;
+      color: white;
+      border-color: transparent;
+    }
+  }
 }
 
 .ml-auto, .mx-auto {

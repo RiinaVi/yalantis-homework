@@ -51,10 +51,10 @@ export function decreaseQuantity(id) {
 }
 
 
-export function addOrder() {
+export function addOrder(products) {
     return{
         type: ADD_ORDER,
-        // payload: products
+        payload: products
     }
 }
 

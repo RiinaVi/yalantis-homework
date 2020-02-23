@@ -1,41 +1,29 @@
-import React, {useEffect, useState} from "react";
-import './orders.scss'
+import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
-import axios from "axios";
 import {Col, Container, Spinner, Table} from "react-bootstrap";
 import OrderPageItem from "./OrderPageItem";
 import {useDispatch, useSelector} from "react-redux";
-import {getCurrentOrder} from "../../store/selectors";
+import {getCurrentOrder, getLoadingStatus} from "../../store/selectors";
 import {setCurrentOrder} from "../../store/actions/ordersActions";
+import './orders.scss'
 
 export default function OrderPage() {
 
     let {orderId} = useParams();
-    const [loadingStatus, setLoadingStatus] = useState(true);
     const currentOrder = useSelector(getCurrentOrder);
     const dispatch = useDispatch();
-
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: process.env.REACT_APP_API_KEY
-        }
-    };
+    const loadingStatus = useSelector(getLoadingStatus);
 
     useEffect(() => {
-        setLoadingStatus(true);
-        axios.get(`${process.env.REACT_APP_API_URL}/orders/${orderId}`,
-            config)
-            .then(res => {
-                    dispatch(setCurrentOrder(res.data));
-                    setLoadingStatus(false);
-                }
-            )
-    }, [orderId]);
+        dispatch(setCurrentOrder(orderId));
+    }, [orderId, dispatch]);
 
     return (
         <div>
-            {!loadingStatus &&
+            {loadingStatus &&
+            <Spinner id='orders-spin' animation="border" role="status" variant="secondary"/>
+            }
+            {!loadingStatus && Object.keys(currentOrder).length &&
             <Container>
                 <Col>
                     <Table striped bordered hover size="sm">
@@ -67,13 +55,9 @@ export default function OrderPage() {
                             </td>
                         </tr>
                         </tfoot>
-
                     </Table>
                 </Col>
             </Container>
-            }
-            {loadingStatus &&
-            <Spinner id='orders-spin' animation="border" role="status" variant="secondary"/>
             }
         </div>
     )

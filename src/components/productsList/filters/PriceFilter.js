@@ -7,27 +7,35 @@ import FormControl from "react-bootstrap/FormControl";
 import {minPrice, maxPrice} from "../../../store/constants/filtersParameters";
 import './filter.scss'
 import debounce from 'lodash.debounce';
+import {useSelector} from "react-redux";
+import {getFilters} from "../../../store/selectors";
 
 const debouncedFunction = debounce((applyPriceFilterHandler, [minPrice, maxPrice]) => {
     applyPriceFilterHandler([minPrice, maxPrice]);
 }, 300);
 
 export default function PriceFilter({applyPriceFilterHandler}) {
-    const [minFilterPrice, setMinFilterPrice] = useState(0);
-    const [maxFilterPrice, setMaxFilterPrice] = useState(1000);
 
-    const onPriceRangeChangeHandler = ([minPrice, maxPrice]) => {
-        setMinFilterPrice(minPrice);
-        setMaxFilterPrice(maxPrice);
-        debouncedFunction(applyPriceFilterHandler, [minPrice, maxPrice]);
+    const queryMinPrice = (useSelector(getFilters).minPrice);
+    const queryMaxPrice = (useSelector(getFilters).maxPrice);
+
+    const [minFilterPrice, setMinFilterPrice] = useState(parseInt(queryMinPrice) || 0);
+    const [maxFilterPrice, setMaxFilterPrice] = useState(parseInt(queryMaxPrice) || 1000);
+
+    const onPriceRangeChangeHandler = ([minFilterPrice, maxFilterPrice]) => {
+        setMinFilterPrice(minFilterPrice);
+        setMaxFilterPrice(maxFilterPrice);
+        debouncedFunction(applyPriceFilterHandler, [minFilterPrice, maxFilterPrice]);
     };
 
     const onMinPriceInputChangeHandler = (e) => {
-        setMinFilterPrice(e.target.value);
+        setMinFilterPrice(parseInt(e.target.value));
+        debouncedFunction(applyPriceFilterHandler, [minFilterPrice, maxFilterPrice])
     };
 
     const onMaxPriceInputChangeHandler = (e) => {
-        setMaxFilterPrice(e.target.value);
+        setMaxFilterPrice(parseInt(e.target.value));
+        debouncedFunction(applyPriceFilterHandler, [minFilterPrice, maxFilterPrice])
     };
 
     const marks = {
@@ -51,6 +59,7 @@ export default function PriceFilter({applyPriceFilterHandler}) {
                             </InputGroup.Prepend>
                             <FormControl
                                 value={minFilterPrice}
+                                // type={'number'}
                                 onChange={onMinPriceInputChangeHandler}
                             />
                         </InputGroup>
@@ -60,6 +69,7 @@ export default function PriceFilter({applyPriceFilterHandler}) {
                             </InputGroup.Prepend>
                             <FormControl
                                 value={maxFilterPrice}
+                                // type={'number'}
                                 onChange={onMaxPriceInputChangeHandler}
                             />
                         </InputGroup>

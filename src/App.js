@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Alert} from "react-bootstrap";
 import CartPage from "./components/cart/cartPage/CartPage";
 import Header from "./components/header/Header";
 import ProductPage from "./components/productPage/ProductPage";
@@ -18,13 +17,10 @@ export default function App() {
         <Provider store={store}>
             <Router>
                 <Header/>
-                <Alert.Link href="/cart">
-                    <AlertComponent/>
-                </Alert.Link>
+                <AlertComponent/>
                 <Switch>
                     <Route exact path="/cart" component={CartPage}/>
                     <Route path='/product/:someProductId' component={ProductPage}/>
-                    <Route path="/page/:pageNumber" component={ProductsContainer}/>
                     <Route exact path="/" component={ProductsContainer}/>
                     <Route exact path='/my-products' component={ProductsContainer}/>
                     <Route path='/my-products/page/:pageNumber' component={ProductsContainer}/>

@@ -1,34 +1,19 @@
-import React, {useEffect, useState} from "react";
-import axios from 'axios';
+import React, {useEffect} from "react";
 import {Container, Spinner, Table} from "react-bootstrap";
 import OrdersHistoryPageItem from "./OrdersHistoryPageItem";
-import './orders.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {getAllOrders} from "../../store/selectors";
+import {getAllOrders, getLoadingStatus} from "../../store/selectors";
 import {setAllOrders} from "../../store/actions/ordersActions";
+import './orders.scss'
 
 export default function OrdersHistoryPage() {
 
-    const [loadingOrders, setLoadingOrders] = useState(false);
     const dispatch = useDispatch();
     const orders = useSelector(getAllOrders);
-
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: process.env.REACT_APP_API_KEY
-        }
-    };
+    const loadingOrders = useSelector(getLoadingStatus);
 
     useEffect(() => {
-        setLoadingOrders(true);
-        axios.get(`${process.env.REACT_APP_API_URL}/orders`,
-            config)
-            .then(res => {
-                    dispatch(setAllOrders(res.data.items));
-                    setLoadingOrders(false);
-                }
-            )
+        dispatch(setAllOrders(null));
     }, [dispatch]);
 
     return (

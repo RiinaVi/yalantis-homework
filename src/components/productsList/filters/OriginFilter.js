@@ -1,22 +1,19 @@
 import React from "react";
 import {Accordion, Card, Form} from "react-bootstrap";
-import './filter.scss'
 import {useSelector} from "react-redux";
-import {getOrigins} from "../../../store/selectors";
-
-let checkedInputs = [];
+import {getFilters, getOrigins} from "../../../store/selectors";
+import './filter.scss'
 
 export default function OriginFilter({applyOriginFilter}) {
-
     const origins = useSelector(getOrigins);
+    let checkedInputs = useSelector(getFilters).origins;
 
     const onChangeHandler = (e) => {
         const origin = e.target.name;
 
         checkedInputs.includes(origin) ?
             checkedInputs = checkedInputs.filter(item => item !== origin) :
-            checkedInputs.push(origin);
-
+            checkedInputs = [...checkedInputs, origin];
         applyOriginFilter(checkedInputs);
     };
 
@@ -39,6 +36,7 @@ export default function OriginFilter({applyOriginFilter}) {
                                         id={origin.value}
                                         name={origin.value}
                                         label={origin.displayName}
+                                        defaultChecked={checkedInputs.includes(origin.value)}
                                     />
                                 )
                             })}

@@ -1,13 +1,15 @@
 import React from 'react';
 import ListItem from "./ListItem";
 import {Col, Container, Row, Spinner} from "react-bootstrap";
-import './productsList.scss';
 import { useSelector} from "react-redux";
-import {getProducts} from "../../store/selectors";
+import {getLoadingStatus, getProducts, getTotalNumberOfProducts} from "../../store/selectors";
+import './productsList.scss';
 
-export default function ProductsList({loadingProducts, total}) {
+export default function ProductsList() {
 
     const products = useSelector(getProducts);
+    const loadingProducts = useSelector(getLoadingStatus);
+    const total = useSelector(getTotalNumberOfProducts);
 
     return (
         <div className={'productsListContainer'}>

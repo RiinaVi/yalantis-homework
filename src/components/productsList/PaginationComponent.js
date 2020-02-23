@@ -1,51 +1,36 @@
 import React from "react";
-import {Pagination} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {getFilters, getPageNumber, getTotalNumberOfProducts} from "../../store/selectors";
+import {setPageNumber, setProductsPerPage} from "../../store/actions/queryActions";
+import {Pagination} from 'antd';
 import './productsList.scss';
-import {Link, withRouter} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {getTotalNumberOfPages} from "../../store/selectors";
 
-function PaginationComponent({currentPage}) {
+function PaginationComponent() {
 
-    const numberOfPages = useSelector(getTotalNumberOfPages);
-    let origin = window.location.pathname;
+    const dispatch = useDispatch();
+    let currentPage = parseInt(useSelector(getPageNumber)) || 1;
+    const pageSize = parseInt(useSelector(getFilters).perPage) || 50;
+    const total = parseInt(useSelector(getTotalNumberOfProducts));
 
-    if(origin.indexOf('page')){
-        origin = origin.slice(0, origin.indexOf('/page'));
+    function onClickHandler(e) {
+        dispatch(setPageNumber(e));
     }
 
-    let items = [];
-
-    items.push(
-        <li key={0} className={`page-item${(currentPage === 1) ? ' disabled' : ''}`}>
-            <Link className={'page-link'} to={`${origin}/page/${currentPage - 1}`}>
-                {'<'}
-            </Link>
-        </li>
-    );
-    for (let number = 1; number <= numberOfPages; number++) {
-        if(numberOfPages>20 && number===20) items.push(<div className='line-break'>{'\n'}</div>);
-        items.push(
-            <li key={number} className={`page-item${number === currentPage ? ' active' : ''}`}>
-                <Link className={'page-link'} to={`${origin}/page/${number}`}>
-                    {number}
-                </Link>
-            </li>
-        );
+    function onShowSizeChange(current, pageSize) {
+        dispatch(setProductsPerPage(pageSize));
     }
-    items.push(
-        <li key={numberOfPages + 1} className={`page-item${currentPage === numberOfPages ? ' disabled' : ''}`}>
-            <Link className={'page-link'} to={`${origin}/page/${currentPage + 1}`}>
-                {'>'}
-            </Link>
-        </li>
-    );
     return (
-        <Pagination>
-            {items}
-        </Pagination>
+        <Pagination current={currentPage}
+                    onChange={(e) => {onClickHandler(e)}}
+                    pageSize={pageSize}
+                    defaultCurrent={1}
+                    total={total}
+                    showSizeChanger
+                    onShowSizeChange={onShowSizeChange}
+                    pageSizeOptions={['10', '25', '50']}
+        />
     );
 }
 
-export default withRouter(PaginationComponent)
+export default PaginationComponent
 

@@ -11,6 +11,8 @@ export default function alertReducer(state = initialState, {type, payload}) {
         case SHOW_ALERT:
             return {
                 ...state,
+                variant: payload.variant,
+                text: payload.text,
                 visible: true
             };
         case HIDE_ALERT:

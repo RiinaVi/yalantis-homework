@@ -7,6 +7,12 @@
   display: flex;
   justify-content: center;
 
+  .row .col{
+    &:nth-child(1){
+      flex-direction: row;
+    }
+  }
+
   p {
     text-align: center;
     font-size: 3em;

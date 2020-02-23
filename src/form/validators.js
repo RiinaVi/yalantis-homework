@@ -13,7 +13,7 @@ export const productFormValidator = combineValidators({
     )('Name'),
     price: composeValidators(
         isRequired,
-        matchesPattern(/^[1-9]+[\\d]*$/)({
+        matchesPattern(/^[1-9]+[0-9]*$/)({
             message: 'Price must be a positive number',
         })
     )('Price'),

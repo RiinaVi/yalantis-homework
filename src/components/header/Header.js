@@ -3,8 +3,10 @@ import CartWidget from "../cart/cartWidget/CartWidget";
 import ModalComponent from "../../form/components/ModalComponent";
 import {Navbar, Nav, Button} from "react-bootstrap";
 import {Link, withRouter} from 'react-router-dom';
+import useHandleSubmit from "../../form/useHandleSubmit";
+import {createMyProduct} from "../../store/actions/formActions";
+import Icon from "antd/es/icon";
 import './header.scss';
-import useHandleCreateSubmit from "../../form/useHandleCreateSubmit";
 
 function Header({location}) {
     const {pathname} = location;
@@ -17,15 +19,15 @@ function Header({location}) {
         setModalShow(false)
     };
 
-    const onSubmitHandler = useHandleCreateSubmit();
+    const onSubmitHandler = useHandleSubmit();
 
     const submitFunctionCustomHandler = (function (data) {
         setIsSubmitting(true);
 
-        onSubmitHandler(data).then(() => {
+        onSubmitHandler(data, createMyProduct).then(() => {
             setModalShow(false);
             setIsSubmitting(false);
-        })
+        });
     });
 
 
@@ -34,7 +36,7 @@ function Header({location}) {
             <Link className={'productsLink mr-auto'} to="/">Products</Link>
             <Link className={' productsLink mr-auto'} to='/my-products'>My products</Link>
             <Button onClick={() => handleShow()}
-                    className={'mr-auto'} variant="outline-warning">&#10010; product
+                    className={'mr-auto'} variant="outline-warning"><Icon type="plus" /> product
             </Button>
             <ModalComponent
                 isFormForEdition={false}

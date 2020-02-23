@@ -1,42 +1,40 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useParams} from 'react-router-dom';
-import axios from "axios";
 import img from '../../imageNoImageSmall.gif';
 import {Button, Image, Container, Col, Row, Spinner} from "react-bootstrap";
 import {Icon} from "antd";
 import './productPage.scss';
 import {formatDate} from '../customFunctions';
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addToCart} from "../../store/actions/cartActions";
 import {hideAlert, showAlert} from "../../store/actions/alertActions";
+import {getCurrentProduct, getLoadingStatus} from "../../store/selectors";
+import {loadCurrentProduct} from "../../store/actions/productsActions";
 
 export default function ProductPage() {
     let {someProductId} = useParams();
-    const [data, setData] = useState(null);
-    const [loadingStatus, setLoadingStatus] = useState(true);
-
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(loadCurrentProduct(someProductId));
+    },[dispatch,someProductId]);
+
+    const loadingStatus = useSelector(getLoadingStatus);
+    const data = useSelector(getCurrentProduct);
 
     const clickHandler = (product) => {
         dispatch(addToCart(product));
         dispatch(showAlert('The product was added to the cart!', 'success'));
-        setTimeout(() =>
-            dispatch(hideAlert())
-        , 2000);
+        setTimeout(() => dispatch(hideAlert()), 2000);
     };
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/products/${someProductId}`)
-            .then(res => {
-                setData(res.data);
-                setLoadingStatus(false);
-            });
-    }, [someProductId]);
 
     return (
         <div className={'productInfoContainer'}>
-            {!loadingStatus &&
+            {loadingStatus &&
+            <Spinner animation="border" role="status" variant="secondary"/>
+            }
+            {!loadingStatus && data &&
             <Container>
                 <p>{data.name}</p>
                 <Row>
@@ -57,9 +55,6 @@ export default function ProductPage() {
                     </Col>
                 </Row>
             </Container>
-            }
-            {loadingStatus &&
-            <Spinner animation="border" role="status" variant="secondary"/>
             }
         </div>
     );

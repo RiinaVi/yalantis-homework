@@ -16,3 +16,10 @@
   align-items: center;
 }
 
+.form-control{
+  min-width: 55px;
+}
+
+.custom-control label {
+  cursor: pointer;
+}

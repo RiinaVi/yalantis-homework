@@ -7,15 +7,17 @@ import {reducer as formReducer} from 'redux-form';
 import originsReducer from "./originsReducer";
 import pageReducer from "./pageReducer";
 import ordersReducer from "./ordersReducer";
+import loadingStatusReducer from "./loadingStatusReducer";
 
 const appReducer = combineReducers({
     cart: cartsReducer,
     alert: alertReducer,
     products: productsReducer,
     queryFilters: queryReducer,
-    filters: originsReducer,
+    origins: originsReducer,
     pages: pageReducer,
     orders: ordersReducer,
+    loadingStatus: loadingStatusReducer,
     form: formReducer
 });
 

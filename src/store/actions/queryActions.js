@@ -1,4 +1,9 @@
-import {SET_PRICE_RANGE, SET_PRODUCTS_PER_PAGE, SET_ORIGINS} from "../constants/actionTypes";
+import {
+    SET_PRICE_RANGE,
+    SET_PRODUCTS_PER_PAGE,
+    SET_ORIGINS,
+    SET_PAGE_NUMBER,
+} from "../constants/actionTypes";
 
 export function setPriceRange([minPrice, maxPrice]) {
     return {
@@ -19,8 +24,14 @@ export function setOrigins(origins) {
 export function setProductsPerPage(perPage) {
     return {
         type: SET_PRODUCTS_PER_PAGE,
-        payload:{
-            perPage
-        }
+        payload: perPage
     }
 }
+
+export function setPageNumber(page) {
+    return{
+        type: SET_PAGE_NUMBER,
+        payload: page
+    }
+}
+
