@@ -14,7 +14,7 @@ import {
 import {
     workerAddOrder,
     workerAlertHider,
-    workerCreateProduct, workerDebounce,
+    workerCreateProduct,
     workerDeleteProduct,
     workerEditProduct,
     workerLoadItem,
@@ -25,10 +25,9 @@ import {
 
 export function* watchRootSaga() {
     yield all([
-        // debounce(1000, LOAD_DATA, workerLoadProducts),
         takeLatest(LOAD_DATA, workerLoadProducts),
         takeLatest(FILTERS_CHANGE_ACTIONS, workerSaveToURL),
-        takeLatest(FILTERS_CHANGE_ACTIONS, workerDebounce),
+        debounce(2000, FILTERS_CHANGE_ACTIONS, workerLoadProducts),
         takeLeading([LOAD_CURRENT_PRODUCT, SET_CURRENT_ORDER], workerLoadItem),
         takeEvery(EDIT_MY_PRODUCT, workerEditProduct),
         takeEvery(CREATE_MY_PRODUCT, workerCreateProduct),

@@ -3,7 +3,6 @@ import {toQueryString} from "../../utils/customFunctions";
 import {setLoadingStatus} from "../actions/loadingStatusActions";
 import {
     createSubmitProduct,
-    dataGetter,
     deleteSubmitProduct,
     editSubmitProduct,
     fetchItem,
@@ -41,7 +40,6 @@ export function* workerLoadItem(action) {
 export function* workerLoadProducts() {
     const filters = yield select(getFilters);
     yield put(setLoadingStatus(true));
-    // yield delay(3000);
     const origins = yield httpClient.get( '/products-origins');
     yield call(workerLoadOrigins, origins);
     const {data} = yield call(fetchProducts, filters);
@@ -88,9 +86,4 @@ export function* workerAddOrder({payload}) {
 export function* workerAlertHider() {
     yield delay(2000);
     yield put(hideAlert());
-}
-
-export function* workerDebounce() {
-    yield delay(3000);
-    yield call(workerLoadProducts);
 }

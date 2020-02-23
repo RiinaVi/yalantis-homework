@@ -11,7 +11,6 @@ export default function ProductsList() {
     const loadingProducts = useSelector(getLoadingStatus);
     const total = useSelector(getTotalNumberOfProducts);
 
-
     return (
         <div className={'productsListContainer'}>
             {loadingProducts &&
