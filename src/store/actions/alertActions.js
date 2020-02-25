@@ -1,4 +1,4 @@
-import {HIDE_ALERT, SHOW_ALERT} from "../constants/actionTypes";
+import {HIDE_ALERT, SHOW_ALERT} from "../constants/actionTypes/alert";
 
 export function showAlert(text, variant) {
     return {

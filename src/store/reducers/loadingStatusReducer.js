@@ -1,4 +1,4 @@
-import {SET_LOADING_STATUS} from "../constants/actionTypes";
+import {SET_LOADING_STATUS} from "../constants/actionTypes/loadingStatus";
 
 const initialState = false;
 

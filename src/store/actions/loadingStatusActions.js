@@ -1,4 +1,4 @@
-import {LOAD_DATA, SET_LOADING_STATUS} from "../constants/actionTypes";
+import {LOAD_DATA, SET_LOADING_STATUS} from "../constants/actionTypes/loadingStatus";
 
 export function setLoadingStatus(loadingStatus) {
     return{

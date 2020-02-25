@@ -3,7 +3,7 @@ import {
     DECREASE_QUANTITY,
     DELETE_FROM_CART, INCREASE_QUANTITY,
     ADD_TO_CART, ADD_ORDER
-} from "../constants/actionTypes";
+} from "../constants/actionTypes/cart";
 
 import {load} from 'redux-localstorage-simple';
 import {increaseQuantity} from "../actions/cartActions";

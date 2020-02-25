@@ -6,17 +6,16 @@ import {
     deleteSubmitProduct,
     editSubmitProduct,
     fetchItem,
-    fetchProducts,
+    fetchProducts, ordersFetcher, originsFetcher,
     postNewProduct
 } from "./requests";
 import {loadCurrentProduct, setProducts, submitProduct, deleteProduct} from "../actions/productsActions";
-import { setTotalNumberOfProducts} from "../actions/pageActions";
+import {setTotalNumberOfProducts} from "../actions/pageActions";
 import {put, call, select, delay} from 'redux-saga/effects'
 import {loadOrigins} from "../actions/originsActions";
 import {hideAlert, showAlert} from "../actions/alertActions";
-import {LOAD_CURRENT_PRODUCT} from "../constants/actionTypes";
+import {LOAD_CURRENT_PRODUCT} from "../constants/actionTypes/products";
 import {setAllOrders, setCurrentOrder} from "../actions/ordersActions";
-import httpClient from "../../api/httpClient";
 
 function changeURL(url) {
     window.history.pushState(null, '', window.location.pathname + '?' + url);
@@ -40,7 +39,7 @@ export function* workerLoadItem(action) {
 export function* workerLoadProducts() {
     const filters = yield select(getFilters);
     yield put(setLoadingStatus(true));
-    const origins = yield httpClient.get( '/products-origins');
+    const origins = yield call(originsFetcher);
     yield call(workerLoadOrigins, origins);
     const {data} = yield call(fetchProducts, filters);
 
@@ -73,7 +72,7 @@ export function* workerDeleteProduct(action) {
 
 export function* workerLoadOrders() {
     yield put(setLoadingStatus(true));
-    let {data} = yield httpClient.get('/orders');
+    let {data} = yield call(ordersFetcher);
     yield put(setAllOrders(data.items));
     yield put(setLoadingStatus(false));
 }

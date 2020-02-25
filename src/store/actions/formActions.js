@@ -1,4 +1,4 @@
-import {CREATE_MY_PRODUCT, DELETE_MY_PRODUCT, EDIT_MY_PRODUCT} from "../constants/actionTypes";
+import {CREATE_MY_PRODUCT, DELETE_MY_PRODUCT, EDIT_MY_PRODUCT} from "../constants/actionTypes/form";
 
 export function createMyProduct(newProduct) {
     return {type: CREATE_MY_PRODUCT, payload: newProduct}

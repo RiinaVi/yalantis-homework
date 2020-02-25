@@ -1,4 +1,4 @@
-import {SET_PRICE_RANGE, SET_PRODUCTS_PER_PAGE, SET_ORIGINS, SET_PAGE_NUMBER,} from "../constants/actionTypes";
+import {SET_PRICE_RANGE, SET_PRODUCTS_PER_PAGE, SET_ORIGINS, SET_PAGE_NUMBER,} from "../constants/actionTypes/query";
 import {parse} from 'qs'
 
 let search = parse(window.location.search.slice(1));

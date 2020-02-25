@@ -3,7 +3,7 @@ import {
     SET_PRODUCTS_PER_PAGE,
     SET_ORIGINS,
     SET_PAGE_NUMBER,
-} from "../constants/actionTypes";
+} from "../constants/actionTypes/query";
 
 export function setPriceRange([minPrice, maxPrice]) {
     return {

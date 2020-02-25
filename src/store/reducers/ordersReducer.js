@@ -1,4 +1,4 @@
-import {SET_ALL_ORDERS, SET_CURRENT_ORDER} from "../constants/actionTypes";
+import {SET_ALL_ORDERS, SET_CURRENT_ORDER} from "../constants/actionTypes/orders";
 
 const initialState = {
     allOrders: [],

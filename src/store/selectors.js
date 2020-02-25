@@ -5,12 +5,29 @@ export const getProducts = state => Object.values(state.products);
 export const getFilters = state => state.queryFilters;
 export const getAlert = state => state.alert;
 export const getOrigins = state => state.origins.origins;
-export const getTotalNumberOfProducts = state => state.pages.totalNumberOfProducts;
-export const getPageNumber = state => state.queryFilters.page;
-export const getAllOrders = state => state.orders.allOrders;
-export const getCurrentOrder = state=> state.orders.currentOrder;
+
+const getPageState = state => state.pages;
+const getOrders = state => state.orders;
+const getWholeProductsState = state => state.products;
+
+export const getTotalNumberOfProducts = createSelector(getPageState,
+    pageState => pageState.totalNumberOfProducts);
+
+
+export const getPageNumber = createSelector(getFilters,
+    filters => filters.page
+);
+
+export const getAllOrders = createSelector(getOrders,
+    orders => orders.allOrders);
+
+export const getCurrentOrder = createSelector(getOrders,
+    orders => orders.currentOrder);
+
 export const getLoadingStatus = state => state.loadingStatus.state;
-export const getCurrentProduct = state => state.products.product;
+
+export const getCurrentProduct = createSelector(getWholeProductsState,
+    products => products.product);
 
 export const getCartSum = createSelector(
     getProductsInCart,

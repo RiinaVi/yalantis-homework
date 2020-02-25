@@ -2,7 +2,7 @@ import {
     CHANGE_QUANTITY, DECREASE_QUANTITY,
     DELETE_FROM_CART,
     INCREASE_QUANTITY, ADD_TO_CART, ADD_ORDER
-} from "../constants/actionTypes";
+} from "../constants/actionTypes/cart";
 
 export function addToCart({id, name, price, quantity}) {
     return {

@@ -1,10 +1,11 @@
 import {
-    DELETE_MY_PRODUCT,
-    DELETE_PRODUCT, EDIT_MY_PRODUCT,
+    DELETE_PRODUCT,
     LOAD_CURRENT_PRODUCT,
     LOAD_PRODUCTS,
     SUBMIT_PRODUCT
-} from "../constants/actionTypes";
+} from "../constants/actionTypes/products";
+
+import {EDIT_MY_PRODUCT,DELETE_MY_PRODUCT} from '../constants/actionTypes/form'
 
 const initialState = {
 

@@ -1,4 +1,4 @@
-import {LOAD_ORIGINS} from "../constants/actionTypes";
+import {LOAD_ORIGINS} from "../constants/actionTypes/origins";
 
 const initialState = {
     origins: []

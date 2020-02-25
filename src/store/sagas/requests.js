@@ -1,5 +1,5 @@
 import httpClient from "../../api/httpClient";
-import {LOAD_CURRENT_PRODUCT} from "../constants/actionTypes";
+import {LOAD_CURRENT_PRODUCT} from "../constants/actionTypes/products";
 
 export function fetchProducts({minPrice, maxPrice, origins, page, perPage}) {
 
@@ -56,4 +56,12 @@ export function postNewProduct(products) {
     };
 
     return httpClient.post(`/orders`, data)
+}
+
+export function ordersFetcher() {
+    return httpClient.get('/orders');
+}
+
+export function originsFetcher() {
+    return httpClient.get( '/products-origins');
 }

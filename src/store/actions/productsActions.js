@@ -3,7 +3,7 @@ import {
     LOAD_CURRENT_PRODUCT,
     LOAD_PRODUCTS,
     SUBMIT_PRODUCT
-} from "../constants/actionTypes";
+} from "../constants/actionTypes/products";
 
 export function setProducts(products) {
     return {
