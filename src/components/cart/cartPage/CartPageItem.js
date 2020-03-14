@@ -3,13 +3,7 @@ import img from '../../../imageNoImageSmall.gif';
 import {Image, Button, InputGroup} from "react-bootstrap";
 import './cartPage.scss'
 import {Link} from "react-router-dom";
-import {
-    increaseQuantity,
-    decreaseQuantity,
-    deleteProduct,
-    changeQuantity
-} from "../../../store/actions/cartActions";
-
+import {increaseQuantity, decreaseQuantity, deleteFromCart, changeQuantity} from "../../../store/actions/cartActions";
 import {useDispatch} from "react-redux";
 import {hideAlert, showAlert} from "../../../store/actions/alertActions";
 import FormControl from "react-bootstrap/FormControl";
@@ -32,7 +26,7 @@ export default function CartPageItem({item}) {
     };
 
     const deleteClickHandler = () => {
-        dispatch(deleteProduct(id));
+        dispatch(deleteFromCart(id));
         dispatch(showAlert('Item was removed from the cart!', 'danger'));
         setTimeout(() => dispatch(hideAlert()), 2000);
     };

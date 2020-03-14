@@ -1,9 +1,9 @@
 import {
     CHANGE_QUANTITY,
     DECREASE_QUANTITY,
-    DELETE_PRODUCT, INCREASE_QUANTITY,
-    ADD_TO_CART
-} from "../constants/actionTypes";
+    DELETE_FROM_CART, INCREASE_QUANTITY,
+    ADD_TO_CART, ADD_ORDER
+} from "../constants/actionTypes/cart";
 
 import {load} from 'redux-localstorage-simple';
 import {increaseQuantity} from "../actions/cartActions";
@@ -25,7 +25,7 @@ export default function cartReducer(state = initialProducts.cart || {}, {payload
                 },
             };
 
-        case DELETE_PRODUCT:
+        case DELETE_FROM_CART:
             newState = Object.assign({}, state);
             delete newState[payload.id];
             return newState;
@@ -49,7 +49,9 @@ export default function cartReducer(state = initialProducts.cart || {}, {payload
             newState[payload.id].quantity =
                 state[payload.id].quantity ? state[payload.id].quantity + 1 : 2;
             return newState;
-
+        case ADD_ORDER:
+            state = [];
+            return state;
         default:
             return state;
     }

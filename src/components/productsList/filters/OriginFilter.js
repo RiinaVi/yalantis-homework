@@ -1,14 +1,19 @@
 import React from "react";
 import {Accordion, Card, Form} from "react-bootstrap";
-import {origins} from "../../../store/constants/filtersParameters";
+import {useSelector} from "react-redux";
+import {getFilters, getOrigins} from "../../../store/selectors";
 import './filter.scss'
 
-let checkedInputs = [];
-
 export default function OriginFilter({applyOriginFilter}) {
+    const origins = useSelector(getOrigins);
+    let checkedInputs = useSelector(getFilters).origins;
 
     const onChangeHandler = (e) => {
-        checkedInputs.push(e.target.name);
+        const origin = e.target.name;
+
+        checkedInputs.includes(origin) ?
+            checkedInputs = checkedInputs.filter(item => item !== origin) :
+            checkedInputs = [...checkedInputs, origin];
         applyOriginFilter(checkedInputs);
     };
 
@@ -16,7 +21,7 @@ export default function OriginFilter({applyOriginFilter}) {
         <Accordion defaultActiveKey="0">
             <Card>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-                    Origin <div className={'arrow-up'}/>
+                    Origin <div className='arrow-up'>&#10094;</div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
@@ -28,9 +33,10 @@ export default function OriginFilter({applyOriginFilter}) {
                                         type={'checkbox'}
                                         onClick={onChangeHandler}
                                         custom
-                                        id={origin}
-                                        name={origin}
-                                        label={origin}
+                                        id={origin.value}
+                                        name={origin.value}
+                                        label={origin.displayName}
+                                        defaultChecked={checkedInputs.includes(origin.value)}
                                     />
                                 )
                             })}

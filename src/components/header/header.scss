@@ -1,11 +1,21 @@
 nav {
   background: #d7d0d7;
   margin-bottom: 10px;
-  .productsLink{
-  font-size: 25px;
-  color: inherit;
-}
 
+  .productsLink {
+    font-size: 25px;
+    color: inherit;
+  }
+  .btn{
+    color: unset;
+    border: 1px solid grey;
+    border-radius: 0;
+    &:hover{
+      background: #3D816A;
+      color: white;
+      border-color: transparent;
+    }
+  }
 }
 
 .ml-auto, .mx-auto {
@@ -20,7 +30,7 @@ nav {
   min-block-size: 2em;
 }
 
-.alert-success, .alert-danger {
+.alert-success, .alert-danger, .alert-warning {
   position: fixed;
   left: 0;
   right: 0;

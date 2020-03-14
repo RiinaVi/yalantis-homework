@@ -1,12 +1,17 @@
-import {SET_PRICE_RANGE, SET_PRODUCTS_PER_PAGE, SET_ORIGINS} from "../constants/actionTypes";
+import {SET_PRICE_RANGE, SET_PRODUCTS_PER_PAGE, SET_ORIGINS, SET_PAGE_NUMBER,} from "../constants/actionTypes/query";
+import {parse} from 'qs'
+
+let search = parse(window.location.search.slice(1));
 
 const initialState = {
-    minPrice: '',
-    maxPrice: '',
-    origins: '',
+    minPrice: search.minPrice || 0,
+    maxPrice: search.maxPrice || 1000,
+    origins: search.origins ? search.origins.split(',') : [],
+    perPage: search.perPage || 50,
+    page: search.page || 1
 };
 
-export default function productsReducer(state = initialState, {type, payload}) {
+export default function (state = initialState, {type, payload}) {
     switch (type) {
         case SET_PRICE_RANGE:
             return {
@@ -15,14 +20,17 @@ export default function productsReducer(state = initialState, {type, payload}) {
                 maxPrice: payload.maxPrice,
             };
         case SET_ORIGINS:
-            return {
-                ...state,
-                origins: payload.origins
-            };
+             return {...state,
+                origins: payload.origins};
         case SET_PRODUCTS_PER_PAGE:
             return {
                 ...state,
-                perPage: payload.perPage
+                perPage: payload
+            };
+        case SET_PAGE_NUMBER:
+            return {
+                ...state,
+                page: payload
             };
         default:
             return state;

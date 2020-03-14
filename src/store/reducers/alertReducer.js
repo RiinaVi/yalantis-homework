@@ -1,4 +1,4 @@
-import {HIDE_ALERT, SHOW_ALERT} from "../constants/actionTypes";
+import {HIDE_ALERT, SHOW_ALERT} from "../constants/actionTypes/alert";
 
 const initialState = {
     visible: false,
@@ -11,9 +11,9 @@ export default function alertReducer(state = initialState, {type, payload}) {
         case SHOW_ALERT:
             return {
                 ...state,
-                visible: true,
+                variant: payload.variant,
                 text: payload.text,
-                variant: payload.variant
+                visible: true
             };
         case HIDE_ALERT:
             return {

@@ -5,20 +5,21 @@
 }
 
 .arrow-up{
-  width: 10px;
-  height: 10px;
-  background: transparent;
-  transform: rotate(45deg);
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  transform: rotate(90deg);
   display: inline-block;
   margin-left: auto;
-  position: relative;
-  top: 2px;
 }
 
 .card-header{
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+
+.form-control{
+  min-width: 55px;
+}
+
+.custom-control label {
+  cursor: pointer;
 }

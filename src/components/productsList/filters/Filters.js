@@ -2,37 +2,32 @@ import React from "react";
 import OriginFilter from "./OriginFilter";
 import PriceFilter from "./PriceFilter";
 import {useDispatch} from "react-redux";
-import {setPriceRange, setOrigins, setProductsPerPage} from "../../../store/actions/queryActions";
-import PerPageSelect from "./PerPageSelect";
+import {setPriceRange, setOrigins, setPageNumber} from "../../../store/actions/queryActions";
 import './filter.scss'
-import {withRouter} from "react-router-dom";
 
-function Filters({history}) {
+function Filters() {
 
     const dispatch = useDispatch();
 
     const applyOriginFilter = origins => {
-        dispatch(setOrigins(origins));
-        history.push("/page/1");
+        applyFilter(setOrigins, origins);
     };
 
-    const applyPriceFilter = (priceRange) => {
-        dispatch(setPriceRange(priceRange));
-        history.push("/page/1");
+    const applyPriceFilter = priceRange => {
+        applyFilter(setPriceRange, priceRange);
     };
 
-    const applyProductsPerPage = perPage => {
-        dispatch(setProductsPerPage(perPage));
-        history.push("/page/1");
+    const applyFilter = (setter, setterValue) => {
+        dispatch(setter(setterValue));
+        dispatch(setPageNumber('1'));
     };
 
     return (
         <>
             <OriginFilter applyOriginFilter={applyOriginFilter}/>
             <PriceFilter applyPriceFilterHandler={applyPriceFilter}/>
-            <PerPageSelect applyProductsPerPage={applyProductsPerPage}/>
         </>
     )
 }
 
-export default withRouter(Filters);
+export default Filters;

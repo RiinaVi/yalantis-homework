@@ -1,37 +1,40 @@
 import React from "react";
-import {Pagination} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {getFilters, getPageNumber, getTotalNumberOfProducts} from "../../store/selectors";
+import {setPageNumber, setProductsPerPage} from "../../store/actions/queryActions";
+import {Pagination} from 'antd';
+import {perPageValues} from "../../store/constants/filtersParameters";
 import './productsList.scss';
-import {Link} from "react-router-dom";
 
-export default function PaginationComponent({currentPage, numberOfPages}) {
-    let items = [];
-    items.push(
-        <li key={0} className={`page-item${currentPage === 1 ? ' disabled' : ''}`}>
-            <Link className={'page-link'} to={`/page/${currentPage - 1}`}>
-                {'<'}
-            </Link>
-        </li>
-    );
-    for (let number = 1; number <= numberOfPages; number++) {
-        items.push(
-            <li key={number} className={`page-item${number === currentPage ? ' active' : ''}`}>
-                <Link className={'page-link'} to={`/page/${number}`}>
-                    {number}
-                </Link>
-            </li>
-        );
+function PaginationComponent() {
+
+    const dispatch = useDispatch();
+    let currentPage = parseInt(useSelector(getPageNumber)) || 1;
+    const pageSize = parseInt(useSelector(getFilters).perPage) || 50;
+    const total = parseInt(useSelector(getTotalNumberOfProducts)) || 0;
+
+    function onClickHandler(num) {
+        dispatch(setPageNumber(num));
     }
-    items.push(
-        <li key={numberOfPages + 1} className={`page-item${currentPage === numberOfPages ? ' disabled' : ''}`}>
-            <Link className={'page-link'} to={`/page/${currentPage + 1}`}>
-                {'>'}
-            </Link>
-        </li>
-    );
+
+    function onShowSizeChange(current, pageSize) {
+        dispatch(setProductsPerPage(pageSize));
+    }
+
     return (
-        <Pagination>
-            {items}
-        </Pagination>
+        <Pagination current={currentPage}
+                    onChange={(num) => {
+                        onClickHandler(num)
+                    }}
+                    pageSize={pageSize}
+                    defaultCurrent={1}
+                    total={total}
+                    showSizeChanger
+                    onShowSizeChange={onShowSizeChange}
+                    pageSizeOptions={perPageValues}
+        />
     );
 }
+
+export default PaginationComponent
 
